@@ -1,0 +1,5 @@
+﻿  Quadtree.cpp
+C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(38,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(65,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(76,20): warning C4018:  '<': signed/unsigned mismatch
+  OOP Template.vcxproj -> C:\Users\smart\Desktop\Guys\Debug\OOP Template.exe
