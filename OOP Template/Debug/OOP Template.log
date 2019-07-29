@@ -1,3 +1,7 @@
-﻿  Quadtree.cpp
-C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(18,22): warning C4018:  '<': signed/unsigned mismatch
+﻿  Game.cpp
+  Quadtree.cpp
+C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(30,22): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(44,20): warning C4018:  '<': signed/unsigned mismatch
+  Generating Code...
+C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(59,22): warning C4018:  '<': signed/unsigned mismatch
   OOP Template.vcxproj -> C:\Users\smart\Desktop\Guys\Debug\OOP Template.exe

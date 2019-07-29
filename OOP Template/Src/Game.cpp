@@ -7,7 +7,6 @@
 #include "Food.h"
 #include "Quadtree.h"
 
-std::vector<Food> foods;
 Quadtree* quadtree;
 
 Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 flags) {
@@ -35,6 +34,7 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 bool clicked = false;
 void Game::update() {
 	//refreshes frame rate counter
+	std::cout << quadtree->root->data.size() << std::endl;
 	if (counter) {
 		if (fpsTimer->getTicks() > 10000) {
 			fpsTimer->stop();
@@ -49,20 +49,15 @@ void Game::update() {
 	}
 
 	if (!clicked && InputSystem::mouse[InputSystem::MOUSE::LEFT]) {
-		foods.push_back(Food());
-		foods.back().rect->dest.x = InputSystem::mouse[InputSystem::MOUSE::X];
-		foods.back().rect->dest.y = InputSystem::mouse[InputSystem::MOUSE::Y];
-		foods.back().rect->update();
+		quadtree->insert(InputSystem::mouse[InputSystem::MOUSE::X], 
+						 InputSystem::mouse[InputSystem::MOUSE::Y],
+						 quadtree->root);
 	}
 	clicked = InputSystem::mouse[InputSystem::MOUSE::LEFT];
 }
 
 void Game::render() {
 	TM::renderClear();
-
-	for (int i = 0; i < foods.size(); i++) {
-		foods[i].render();
-	}
 
 	quadtree->render(quadtree->root);
 

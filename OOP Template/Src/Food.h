@@ -5,6 +5,7 @@ struct Rect;
 struct Quad;
 struct Food {
 	Food();
+	Food(int x, int y);
 	void render();
 
 	Quad* parent = nullptr;

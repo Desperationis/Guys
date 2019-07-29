@@ -11,8 +11,13 @@ Food::Food() {
 	int y = rand() % WINDOW::HEIGHT;
 	rect = new Rect(x, y, FOOD::SIZE, FOOD::SIZE);
 	id = counter;
-	counter++;
 }
+
+Food::Food(int x, int y) {
+	rect = new Rect(x, y, FOOD::SIZE, FOOD::SIZE);
+	id = counter;
+}
+
 
 void Food::render() {
 	rect->renderFill(0, 155, 0, 255);
