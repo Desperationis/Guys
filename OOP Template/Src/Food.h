@@ -9,8 +9,8 @@ struct Food {
 
 	Quad* parent = nullptr;
 	Rect* rect = nullptr;
-	static const int value;
 	Uint32 id;
+	static const int value;
 	static Uint32 counter;
 }; 
 

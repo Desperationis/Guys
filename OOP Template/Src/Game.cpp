@@ -4,13 +4,11 @@
 #include "Tools/Timer.h"
 #include "Tools/InputSystem.h"
 #include "Tools/Rect.h"
-#include "Blob.h"
 #include "Food.h"
 #include "Quadtree.h"
 
-std::vector<Blob> blobs;
 std::vector<Food> foods;
-Quadtree* quadtree = nullptr;
+Quadtree* quadtree;
 
 Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 flags) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -32,12 +30,6 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 	SDL_PollEvent(&event);
 
 	quadtree = new Quadtree();
-
-
-	for (int i = 0; i < 300; i++) {
-		//quadtree->erase(foods[i]);
-	}
-
 }
 
 bool clicked = false;
@@ -61,7 +53,6 @@ void Game::update() {
 		foods.back().rect->dest.x = InputSystem::mouse[InputSystem::MOUSE::X];
 		foods.back().rect->dest.y = InputSystem::mouse[InputSystem::MOUSE::Y];
 		foods.back().rect->update();
-		quadtree->insert(&foods.back());
 	}
 	clicked = InputSystem::mouse[InputSystem::MOUSE::LEFT];
 }
@@ -72,8 +63,6 @@ void Game::render() {
 	for (int i = 0; i < foods.size(); i++) {
 		foods[i].render();
 	}
-
-	TM::renderDrawColor(255, 0, 0);
 
 	quadtree->render(quadtree->root);
 

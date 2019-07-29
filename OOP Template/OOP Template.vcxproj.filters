@@ -42,10 +42,10 @@
     <ClCompile Include="Src\Food.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Quadtree.cpp">
+    <ClCompile Include="Src\Setup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Setup.cpp">
+    <ClCompile Include="Src\Quadtree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
