@@ -23,3 +23,9 @@ void Food::render() {
 	rect->renderFill(0, 155, 0, 255);
 }
 
+void Food::clean() {
+	parent = nullptr;
+	delete rect;
+	rect = nullptr;
+}
+

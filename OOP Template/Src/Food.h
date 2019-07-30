@@ -7,6 +7,7 @@ struct Food {
 	Food();
 	Food(int x, int y);
 	void render();
+	void clean();
 
 	Quad* parent = nullptr;
 	Rect* rect = nullptr;
