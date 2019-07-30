@@ -30,10 +30,10 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 	SDL_PollEvent(&event);
 
 	quadtree = new Quadtree();
-	quadtree->insert(100, 100, quadtree->root);
-	quadtree->insert(50, 50, quadtree->root);
-	quadtree->insert(50, 100, quadtree->root);
-	node = quadtree->insert(100, 50, quadtree->root);
+	
+	for (int i = 0; i < 500; i++) {
+		quadtree->insert(rand() % 799, rand() % 799, quadtree->root);
+	}
 }
 
 bool clicked = false;

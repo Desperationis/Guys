@@ -18,13 +18,12 @@ Quadtree::Quadtree() {
 	root = new Quad(0, 0, WINDOW::WIDTH, WINDOW::HEIGHT);
 }
 
-Food* Quadtree::insert(int x, int y, Quad* root) {
+void Quadtree::insert(int x, int y, Quad* root) {
 	Quad* quad = search(x, y, root);
 	SDL_Rect& dest = quad->rect.dest;
 	quad->data[Food::counter] = Food(x,y);
 	quad->data[Food::counter].parent = quad;
-	Food* tmp = &quad->data[Food::counter];
-	int currentID = Food::counter;
+	Food::counter++;
 
 	if (quad->data.size() >= 4) {
 		quad->children.push_back(Quad(dest.x, dest.y, dest.w / 2, dest.h / 2));
@@ -40,22 +39,15 @@ Food* Quadtree::insert(int x, int y, Quad* root) {
 			for (int i = 0; i < quad->children.size(); i++) {
 				//change to collide rect for higher accuracy over performance
 				if (quad->children[i].rect.CollidePoint(it.value().rect->dest.x, it.value().rect->dest.y)) {
-					Food* node = insert(it.value().rect->dest.x, it.value().rect->dest.y, quad);
-					if (it.value().id == currentID) {
-						tmp = node;
-					}
+					insert(it.value().rect->dest.x, it.value().rect->dest.y, &quad->children[i]);
 					it.value().clean();
 					break;
 				}
 
 			}
 		}
-
 		quad->data.clear();
 	}
-
-	Food::counter++;
-	return tmp;
 }
 
 Quad* Quadtree::search(int x, int y, Quad* root) {

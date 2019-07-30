@@ -18,7 +18,7 @@ struct Quadtree {
 
 	void erase(Food* food);
 	void render(Quad* root); // don't extend
-	Food* insert(int x, int y, Quad* root);
+	void insert(int x, int y, Quad* root);
 	Quad* search(int x, int y, Quad* root); // don't extend
 	Quad* root;
 };
