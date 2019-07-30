@@ -30,13 +30,10 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 	SDL_PollEvent(&event);
 
 	quadtree = new Quadtree();
-	quadtree->insert(200, 200, quadtree->root);
-	quadtree->insert(600, 200, quadtree->root);
-	quadtree->insert(200, 600, quadtree->root);
-	node = quadtree->insert(600, 600, quadtree->root);
-	for (auto it = quadtree->search(600,600,quadtree->root)->data.begin(); it != quadtree->search(600, 600, quadtree->root)->data.end(); it++) {
-		std::cout << it.value().id << std::endl;
-	}
+	quadtree->insert(100, 100, quadtree->root);
+	quadtree->insert(50, 50, quadtree->root);
+	quadtree->insert(50, 100, quadtree->root);
+	node = quadtree->insert(100, 50, quadtree->root);
 }
 
 bool clicked = false;
@@ -58,6 +55,7 @@ void Game::update() {
 	if (!clicked && InputSystem::mouse[InputSystem::MOUSE::LEFT]) {
 		quadtree->erase(node);
 	}
+	clicked = InputSystem::mouse[InputSystem::MOUSE::LEFT];
 
 }
 
@@ -65,9 +63,6 @@ void Game::render() {
 	TM::renderClear();
 
 	quadtree->render(quadtree->root);
-
-	node->parent->rect.renderOutline(0, 0, 255);
-	//quadtree->search(85, 55, quadtree->root)->rect.renderOutline(0, 0, 255);
 
 	TM::renderDrawColor(255, 255, 255);
 	TM::renderPresent();

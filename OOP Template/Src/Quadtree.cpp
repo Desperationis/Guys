@@ -10,6 +10,10 @@ Quad::Quad(int x, int y, int w, int h) {
 	rect.update();
 }
 
+Quad::~Quad() {
+	parent = nullptr;
+}
+
 Quadtree::Quadtree() {
 	root = new Quad(0, 0, WINDOW::WIDTH, WINDOW::HEIGHT);
 }
@@ -36,7 +40,7 @@ Food* Quadtree::insert(int x, int y, Quad* root) {
 			for (int i = 0; i < quad->children.size(); i++) {
 				//change to collide rect for higher accuracy over performance
 				if (quad->children[i].rect.CollidePoint(it.value().rect->dest.x, it.value().rect->dest.y)) {
-					Food* node = insert(it.value().rect->dest.x, it.value().rect->dest.y, &quad->children[i]);
+					Food* node = insert(it.value().rect->dest.x, it.value().rect->dest.y, quad);
 					if (it.value().id == currentID) {
 						tmp = node;
 					}
@@ -66,9 +70,26 @@ Quad* Quadtree::search(int x, int y, Quad* root) {
 }
 
 void Quadtree::erase(Food* food) {
-	Quad* parent = search(food->rect->dest.x, food->rect->dest.y, root);
-	parent->data.erase(food->id);
+	Quad* quad = search(food->rect->dest.x, food->rect->dest.y, root);
+	food->clean();
+	quad->data.erase(food->id);
 	food = nullptr;
+
+	int sum = 0;
+	for (int i = 0; i < quad->parent->children.size(); i++) {
+		sum += quad->parent->children[i].data.size();
+	}
+
+	if (sum < 4) {
+		for (int i = 0; i < quad->parent->children.size(); i++) {
+			for (auto it = quad->parent->children[i].data.begin(); it != quad->parent->children[i].data.end(); it++) {
+				quad->parent->data[it.key()] = it.value();
+				quad->parent->data[it.key()].parent = quad;
+			}
+		}
+		quad->parent->children.clear();
+	}
+	quad = nullptr;
 }
 
 void Quadtree::render(Quad* root) {

@@ -5,6 +5,7 @@
 
 struct Quad {
 	Quad(int x, int y, int w, int h);
+	~Quad();
 
 	Quad* parent;
 	Rect rect;
@@ -16,8 +17,8 @@ struct Quadtree {
 	Quadtree();
 
 	void erase(Food* food);
-	void render(Quad* root);
+	void render(Quad* root); // don't extend
 	Food* insert(int x, int y, Quad* root);
-	Quad* search(int x, int y, Quad* root);
+	Quad* search(int x, int y, Quad* root); // don't extend
 	Quad* root;
 };

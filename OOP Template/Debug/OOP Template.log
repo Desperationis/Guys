@@ -1,9 +1,8 @@
-﻿  Food.cpp
-  Game.cpp
-  Quadtree.cpp
-C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(31,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(36,22): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(59,20): warning C4018:  '<': signed/unsigned mismatch
-  Generating Code...
-C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(79,22): warning C4018:  '<': signed/unsigned mismatch
+﻿  Quadtree.cpp
+C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(35,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(40,22): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(63,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(79,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(84,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\smart\Desktop\Guys\OOP Template\Src\Quadtree.cpp(100,22): warning C4018:  '<': signed/unsigned mismatch
   OOP Template.vcxproj -> C:\Users\smart\Desktop\Guys\Debug\OOP Template.exe
