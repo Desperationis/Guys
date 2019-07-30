@@ -2,6 +2,7 @@
 #include "Tools/Rect.h"
 #include "includes.h"
 #include "Food.h"
+#include "Hooman.h"
 
 struct Quad {
 	Quad(int x, int y, int w, int h);
@@ -10,15 +11,19 @@ struct Quad {
 	Quad* parent;
 	Rect rect;
 	std::vector<Quad> children;
-	tsl::hopscotch_map<Uint32, Food> data;
+	tsl::hopscotch_map<Uint32, Food> foods;
+	tsl::hopscotch_map<Uint32, Hooman> people;
 };
 
 struct Quadtree {
 	Quadtree();
 
 	void erase(Food* food);
-	void render(Quad* root); // don't extend
+	void erase(Hooman* human);
+	void render(Quad* root);
+	void update(Quad* root);
 	void insert(int x, int y, Quad* root);
-	Quad* search(int x, int y, Quad* root); // don't extend
+	void insert(int x, int y, SDL_Color color, Quad* root); // hooman insert function
+	Quad* search(int x, int y, Quad* root);
 	Quad* root;
 };

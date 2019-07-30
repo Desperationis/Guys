@@ -4,7 +4,6 @@
 #include "Tools/Timer.h"
 #include "Tools/InputSystem.h"
 #include "Tools/Rect.h"
-#include "Food.h"
 #include "Quadtree.h"
 
 Quadtree* quadtree;
@@ -30,21 +29,16 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 	SDL_PollEvent(&event);
 
 	quadtree = new Quadtree();
-	
-	quadtree->insert(50, 50, quadtree->root);
-	quadtree->insert(51, 50, quadtree->root);
-	quadtree->insert(51, 51, quadtree->root);
-	quadtree->insert(50, 51, quadtree->root);
 
-	for (auto it = quadtree->search(50, 50, quadtree->root)->data.begin();
-		it != quadtree->search(50, 50, quadtree->root)->data.end(); it++){
-
-		node = &it.value();
+	for (unsigned int i = 0; i < 100; i++) {
+		quadtree->insert(rand() % 800, rand() % 800, SDL_Color{255,0,0,255}, quadtree->root);
+	}
+	for (unsigned int i = 0; i < 100; i++) {
+		quadtree->insert(rand() % 800, rand() % 800, quadtree->root);
 	}
 
 }
 
-bool clicked = false;
 void Game::update() {
 	//refreshes frame rate counter
 	if (counter) {
@@ -60,11 +54,7 @@ void Game::update() {
 		std::cout << avgFPS << std::endl;
 	}
 
-	if (!clicked && InputSystem::mouse[InputSystem::MOUSE::LEFT]) {
-		quadtree->erase(node);
-	}
-	clicked = InputSystem::mouse[InputSystem::MOUSE::LEFT];
-
+	quadtree->update(quadtree->root);
 }
 
 void Game::render() {
