@@ -34,7 +34,6 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 bool clicked = false;
 void Game::update() {
 	//refreshes frame rate counter
-	std::cout << quadtree->root->data.size() << std::endl;
 	if (counter) {
 		if (fpsTimer->getTicks() > 10000) {
 			fpsTimer->stop();
@@ -49,9 +48,9 @@ void Game::update() {
 	}
 
 	if (!clicked && InputSystem::mouse[InputSystem::MOUSE::LEFT]) {
-		quadtree->insert(InputSystem::mouse[InputSystem::MOUSE::X], 
-						 InputSystem::mouse[InputSystem::MOUSE::Y],
-						 quadtree->root);
+		std::cout << quadtree->insert(InputSystem::mouse[InputSystem::MOUSE::X],
+			InputSystem::mouse[InputSystem::MOUSE::Y],
+			quadtree->root)->id << std::endl;
 	}
 	clicked = InputSystem::mouse[InputSystem::MOUSE::LEFT];
 }
