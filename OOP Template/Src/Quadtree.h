@@ -15,8 +15,9 @@ struct Quad {
 struct Quadtree {
 	Quadtree();
 
+	void erase(Food* food);
 	void render(Quad* root);
 	Food* insert(int x, int y, Quad* root);
-	Quad& search(int x, int y, Quad& root);
+	Quad* search(int x, int y, Quad* root);
 	Quad* root;
 };

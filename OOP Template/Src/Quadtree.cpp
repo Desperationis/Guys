@@ -15,7 +15,7 @@ Quadtree::Quadtree() {
 }
 
 Food* Quadtree::insert(int x, int y, Quad* root) {
-	Quad& quad = search(x, y, *root);
+	Quad& quad = *search(x, y, root);
 	SDL_Rect& dest = quad.rect.dest;
 	quad.data[Food::counter] = Food(x,y);
 	Food* tmp = &quad.data[Food::counter];
@@ -47,15 +47,21 @@ Food* Quadtree::insert(int x, int y, Quad* root) {
 	return tmp;
 }
 
-Quad& Quadtree::search(int x, int y, Quad& root) {
-	for (int i = 0; i < root.children.size(); i++) {
-		if (root.children[i].rect.CollidePoint(x, y)) {
-			return search(x,y , root.children[i]);
+Quad* Quadtree::search(int x, int y, Quad* root) {
+	for (int i = 0; i < root->children.size(); i++) {
+		if (root->children[i].rect.CollidePoint(x, y)) {
+			return search(x,y , &root->children[i]);
 		}
 	}
 	
 
 	return root;
+}
+
+void Quadtree::erase(Food* food) {
+	Quad* parent = search(food->rect->left, food->rect->top, root);
+
+	parent->data.erase(food->id);
 }
 
 void Quadtree::render(Quad* root) {

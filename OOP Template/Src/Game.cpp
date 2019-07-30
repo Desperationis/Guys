@@ -48,9 +48,9 @@ void Game::update() {
 	}
 
 	if (!clicked && InputSystem::mouse[InputSystem::MOUSE::LEFT]) {
-		std::cout << quadtree->insert(InputSystem::mouse[InputSystem::MOUSE::X],
+		quadtree->erase(quadtree->insert(InputSystem::mouse[InputSystem::MOUSE::X],
 			InputSystem::mouse[InputSystem::MOUSE::Y],
-			quadtree->root)->id << std::endl;
+			quadtree->root));
 	}
 	clicked = InputSystem::mouse[InputSystem::MOUSE::LEFT];
 }
