@@ -62,7 +62,7 @@ Quad* Quadtree::search(int x, int y, Quad* root) {
 }
 
 void Quadtree::erase(Food* food) {
-	Quad* quad = search(food->rect->dest.x, food->rect->dest.y, root);
+	Quad* quad = search(food->rect->dest.x, food->rect->dest.y, food->parent);
 	food->clean();
 	quad->data.erase(food->id);
 	food = nullptr;

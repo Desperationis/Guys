@@ -31,9 +31,17 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 
 	quadtree = new Quadtree();
 	
-	for (int i = 0; i < 500; i++) {
-		quadtree->insert(rand() % 799, rand() % 799, quadtree->root);
+	quadtree->insert(50, 50, quadtree->root);
+	quadtree->insert(51, 50, quadtree->root);
+	quadtree->insert(51, 51, quadtree->root);
+	quadtree->insert(50, 51, quadtree->root);
+
+	for (auto it = quadtree->search(50, 50, quadtree->root)->data.begin();
+		it != quadtree->search(50, 50, quadtree->root)->data.end(); it++){
+
+		node = &it.value();
 	}
+
 }
 
 bool clicked = false;
