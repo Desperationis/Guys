@@ -1,2 +1,11 @@
+.vs\
+Debug\
+Release\
+
 .vs/
-vs/
+Debug/
+Release/
+
+.vs
+Debug
+Release
