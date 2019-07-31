@@ -148,6 +148,8 @@ Quad* Quadtree::search(int& x, int& y, Quad* root) {
 	return root;
 }
 
+void Quadtree::erase(Food* food) {
+	Quad* quad = search(food->rect->dest.x, food->rect->dest.y, root);
 	quad->foods.erase(food->id);
 	food = nullptr;
 
@@ -171,7 +173,7 @@ Quad* Quadtree::search(int& x, int& y, Quad* root) {
 void Quadtree::erase(Hooman* human) {
 	Quad* quad = nullptr;
 	try {
-		quad = search(human->rect->dest.x, human->rect->dest.y, human->parent);
+		quad = search(human->rect->dest.x, human->rect->dest.y, root);
 	}
 	catch (std::exception& e) {
 		human->parent->people.erase(human->id);
