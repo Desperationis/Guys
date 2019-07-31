@@ -37,7 +37,9 @@ void Quadtree::render(Quad* root) {
 
 void Quadtree::update(Quad* root) {
 	for (auto it = root->people.begin(); it != root->people.end(); it++) {
-		it.value().update();
+		if (it.value().update()) {
+			queue.push_back(&it.value());
+		}
 	}
 
 	for (int i = 0; i < root->children.size(); i++) {
@@ -45,7 +47,7 @@ void Quadtree::update(Quad* root) {
 	}
 }
 
-void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e) {
+void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e, bool dead) {
 	Quad* quad = nullptr;
 	try {
 		quad = search(x, y, root);
@@ -87,7 +89,7 @@ void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e) {
 			for (unsigned int i = 0; i < quad->children.size(); i++) {
 				//change to collide rect for higher accuracy over performance
 				if (quad->children[i].rect.CollidePoint(it.value().rect->dest.x, it.value().rect->dest.y)) {
-					insert(it.value().rect->dest.x, it.value().rect->dest.y, &quad->children[i], FOOD);
+					insert(it.value().rect->dest.x, it.value().rect->dest.y, &quad->children[i], FOOD, it.value().dead);
 					it.value().clean();
 					break;
 				}
@@ -98,7 +100,7 @@ void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e) {
 			for (unsigned int i = 0; i < quad->children.size(); i++) {
 				//change to collide rect for higher accuracy over performance
 				if (quad->children[i].rect.CollidePoint(it.value().rect->dest.x, it.value().rect->dest.y)) {
-					insert(it.value().rect->dest.x, it.value().rect->dest.y, &quad->children[i], HOOMAN);
+					insert(it.value().rect->dest.x, it.value().rect->dest.y, &quad->children[i], HOOMAN, it.value().dead);
 					it.value().clean();
 					break;
 				}
@@ -133,7 +135,7 @@ Quad* Quadtree::search(int& x, int& y, Quad* root) {
 		tmp += buffer.str() + "}";
 		buffer.str("");
 		throw std::exception(tmp.c_str());
-		return nullptr;
+		return root;
 	}
 
 
@@ -144,4 +146,39 @@ Quad* Quadtree::search(int& x, int& y, Quad* root) {
 ;	}
 
 	return root;
+}
+
+void Quadtree::erase(Food* food) {
+	Quad* quad = search(food->rect->dest.x, food->rect->dest.y, food->parent);
+	quad->foods.erase(food->id);
+	food = nullptr;
+
+	int sum = 0;
+	for (unsigned int i = 0; i < quad->parent->children.size(); i++) {
+		sum += quad->parent->children[i].foods.size();
+	}
+
+	if (sum < 4) {
+		for (unsigned int i = 0; i < quad->parent->children.size(); i++) {
+			for (auto it = quad->parent->children[i].foods.begin(); it != quad->parent->children[i].foods.end(); it++) {
+				quad->parent->foods[it.key()] = it.value();
+				quad->parent->foods[it.key()].parent = quad;
+			}
+		}
+		quad->parent->children.clear();
+	}
+	quad = nullptr;
+}
+
+void Quadtree::erase(Hooman* human) {
+	Quad* quad = nullptr;
+	try {
+		quad = search(human->rect->dest.x, human->rect->dest.y, human->parent);
+	}
+	catch (std::exception& e) {
+		human->parent->people.erase(human->id);
+	}
+	quad->people.erase(human->id);
+	human = nullptr;
+	quad = nullptr;
 }

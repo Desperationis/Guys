@@ -9,6 +9,7 @@ struct Food {
 	void render();
 	void clean();
 
+	bool dead = false;
 	Quad* parent = nullptr;
 	Rect* rect = nullptr;
 	Uint32 id;

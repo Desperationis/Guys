@@ -30,14 +30,14 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 
 	quadtree = new Quadtree();
 
-	for (unsigned int i = 0; i < 40; i++) {
-		int x = rand() % 800;
-		int y = rand() % 800;
+	for (unsigned int i = 0; i < 20; i++) {
+		int x = (rand() % 799) + 1;
+		int y = (rand() % 799) + 1;
 		quadtree->insert(x, y, quadtree->root, quadtree->HOOMAN);
 	}
 	for (unsigned int i = 0; i < 40; i++) {
-		int x = rand() % 800;
-		int y = rand() % 800;
+		int x = (rand() % 799) + 1;
+		int y = (rand() % 799) + 1;
 		quadtree->insert(x, y, quadtree->root, quadtree->FOOD);
 	}
 }
@@ -92,6 +92,10 @@ void Game::update() {
 	// Debug Tools
 
 	quadtree->update(quadtree->root);
+	for (int i = 0; i < quadtree->queue.size(); i++) {
+		quadtree->erase(quadtree->queue[i]);
+	}
+	quadtree->queue.clear();
 }
 
 void Game::render() {
