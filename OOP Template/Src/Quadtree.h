@@ -18,14 +18,14 @@ struct Quad {
 struct Quadtree {
 	Quadtree();
 
+	enum ENTITIES { FOOD, HOOMAN };
 	std::vector<Hooman*> queue;
 
 	void erase(Food* food);
 	void erase(Hooman* human);
 	void render(Quad* root);
 	void update(Quad* root);
-	void insert(int x, int y, Quad* root);
-	void insert(int x, int y, SDL_Color color, Quad* root); // hooman insert function
+	void insert(int x, int y, Quad* root, ENTITIES e);
 	Quad* search(int x, int y, Quad* root);
 	Quad* root;
 };

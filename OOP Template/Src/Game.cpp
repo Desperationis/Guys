@@ -30,11 +30,11 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 
 	quadtree = new Quadtree();
 
-	for (unsigned int i = 0; i < 100; i++) {
-		quadtree->insert(rand() % 800, rand() % 800, SDL_Color{255,0,0,255}, quadtree->root);
+	for (unsigned int i = 0; i < 4; i++) {
+		quadtree->insert(rand() % 800, rand() % 800, quadtree->root, quadtree->HOOMAN);
 	}
-	for (unsigned int i = 0; i < 100; i++) {
-		quadtree->insert(rand() % 800, rand() % 800, quadtree->root);
+	for (unsigned int i = 0; i < 4; i++) {
+		quadtree->insert(rand() % 800, rand() % 800, quadtree->root, quadtree->FOOD);
 	}
 
 }
