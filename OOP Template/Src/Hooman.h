@@ -12,6 +12,8 @@ struct Hooman {
 
 	static Uint32 counter;
 
+	bool dead = false;
+
 	Uint32 id = 0;
 	Rect* rect;
 	Quad* parent = nullptr;

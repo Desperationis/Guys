@@ -30,14 +30,20 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 
 	quadtree = new Quadtree();
 
-	for (unsigned int i = 0; i < 200; i++) {
-		quadtree->insert(rand() % 800, rand() % 800, quadtree->root, quadtree->HOOMAN);
+	for (unsigned int i = 0; i < 20; i++) {
+		int x = (rand() % 799) + 1;
+		int y = (rand() % 799) + 1;
+		quadtree->insert(x, y, quadtree->root, quadtree->HOOMAN);
 	}
-	for (unsigned int i = 0; i < 4; i++) {
-		quadtree->insert(rand() % 800, rand() % 800, quadtree->root, quadtree->FOOD);
+	for (unsigned int i = 0; i < 40; i++) {
+		int x = (rand() % 799) + 1;
+		int y = (rand() % 799) + 1;
+		quadtree->insert(x, y, quadtree->root, quadtree->FOOD);
 	}
 }
 
+bool Lclicked = false;
+bool Rclicked = false;
 void Game::update() {
 	//refreshes frame rate counter
 	if (counter) {
@@ -53,19 +59,42 @@ void Game::update() {
 		std::cout << avgFPS << std::endl;
 	}
 
+	// Debug Tools
+	int x = InputSystem::mouse[InputSystem::MOUSE::X];
+	int y = InputSystem::mouse[InputSystem::MOUSE::Y];
+	char type = '-';
+	if (InputSystem::mouse[InputSystem::MOUSE::LEFT] && !Lclicked) 
+		quadtree->insert(x, y, quadtree->root, Quadtree::FOOD);
+	if (InputSystem::mouse[InputSystem::MOUSE::RIGHT] && !Rclicked) 
+		quadtree->insert(x, y, quadtree->root, Quadtree::HOOMAN);
+	Lclicked = InputSystem::mouse[InputSystem::MOUSE::LEFT];
+	Rclicked = InputSystem::mouse[InputSystem::MOUSE::RIGHT];
+
+	if (InputSystem::keys[SDL_SCANCODE_LSHIFT]) {
+		std::cout << "Input X: ", std::cin >> x, std::cout << "\n";
+		std::cout << "Input y: ", std::cin >> y, std::cout << "\n";
+		do {
+			std::cout << "Type [F / H]: ", std::cin >> type, std::cout << "\n";
+			switch (type) {
+			case 'H':
+				quadtree->insert(x, y, quadtree->root, Quadtree::HOOMAN);
+				break;
+			case 'F':
+				quadtree->insert(x, y, quadtree->root, Quadtree::FOOD);
+				break;
+			default:
+				std::cout << "Didn't quite catch that.\n" << std::endl;
+				break;
+			}
+		} while (type != 'F' && type != 'H');
+	}
+
+	// Debug Tools
+
 	quadtree->update(quadtree->root);
-
-	std::vector<Quad> quads;
-
 	for (int i = 0; i < quadtree->queue.size(); i++) {
 		quadtree->erase(quadtree->queue[i]);
-		quads.push_back(*quadtree->queue[i]->parent);
 	}
-	for (int i = 0; i < quads.size(); i++) {
-		quadtree->cleanUp(&quads[i]);
-	}
-
-	quads.clear();
 	quadtree->queue.clear();
 }
 
