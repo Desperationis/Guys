@@ -135,7 +135,7 @@ Quad* Quadtree::erase(Hooman* human) {
 void Quadtree::cleanUp(Quad* quad) {
 	int sum = 0;
 	for (unsigned int i = 0; i < quad->parent->children.size(); i++) {
-		sum += quad->parent->children[i].foods.size();
+		sum += quad->parent->children[i].people.size();
 	}
 
 	if (sum < 4) {
@@ -145,8 +145,8 @@ void Quadtree::cleanUp(Quad* quad) {
 				quad->parent->foods[it.key()].parent = quad;
 			}
 			for (auto it = quad->parent->children[i].people.begin(); it != quad->parent->children[i].people.end(); it++) {
-				//quad->parent->people[it.key()] = it.value();
-				//quad->parent->people[it.key()].parent = quad;
+				quad->parent->people[it.key()] = it.value();
+				quad->parent->people[it.key()].parent = quad;
 			}
 		}
 		quad->parent->children.clear();
