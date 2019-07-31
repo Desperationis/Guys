@@ -75,6 +75,10 @@ void Quadtree::insert(int x, int y, Quad* root, ENTITIES e) {
 }
 
 Quad* Quadtree::search(int x, int y, Quad* root) {
+	if (!root->rect.CollidePoint(x, y)) {
+		return search(x,y,root->parent);
+	}
+
 
 	for (unsigned int i = 0; i < root->children.size(); i++) {
 		if (root->children[i].rect.CollidePoint(x, y)) {
@@ -119,11 +123,16 @@ void Quadtree::erase(Food* food) {
 	quad = nullptr;
 }
 
-void Quadtree::erase(Hooman* human) {
+Quad* Quadtree::erase(Hooman* human) {
 	Quad* quad = search(human->rect->dest.x, human->rect->dest.y, human->parent);
 	quad->people.erase(human->id);
 	human = nullptr;
 
+
+	return quad;
+}
+
+void Quadtree::cleanUp(Quad* quad) {
 	int sum = 0;
 	for (unsigned int i = 0; i < quad->parent->children.size(); i++) {
 		sum += quad->parent->children[i].foods.size();
@@ -135,10 +144,13 @@ void Quadtree::erase(Hooman* human) {
 				quad->parent->foods[it.key()] = it.value();
 				quad->parent->foods[it.key()].parent = quad;
 			}
+			for (auto it = quad->parent->children[i].people.begin(); it != quad->parent->children[i].people.end(); it++) {
+				//quad->parent->people[it.key()] = it.value();
+				//quad->parent->people[it.key()].parent = quad;
+			}
 		}
 		quad->parent->children.clear();
 	}
-	quad = nullptr;
 }
 
 void Quadtree::render(Quad* root) {
