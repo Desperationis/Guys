@@ -148,15 +148,6 @@ Quad* Quadtree::search(int& x, int& y, Quad* root) {
 	return root;
 }
 
-void Quadtree::erase(Food* food) {
-	Quad* quad = nullptr;
-	try {
-		 quad = search(food->rect->dest.x, food->rect->dest.y, food->parent);
-	}
-	catch (std::exception& e) {
-		food->parent->foods.erase(food->id);
-	}
-
 	quad->foods.erase(food->id);
 	food = nullptr;
 
@@ -184,24 +175,8 @@ void Quadtree::erase(Hooman* human) {
 	}
 	catch (std::exception& e) {
 		human->parent->people.erase(human->id);
-		return;
 	}
 	quad->people.erase(human->id);
 	human = nullptr;
-	
-	/*int sum = 0;
-	for (unsigned int i = 0; i < quad->parent->children.size(); i++) {
-		sum += quad->parent->children[i].people.size();
-	}
-
-	if (sum < 4) {
-		for (unsigned int i = 0; i < quad->parent->children.size(); i++) {
-			for (auto it = quad->parent->children[i].people.begin(); it != quad->parent->children[i].people.end(); it++) {
-				quad->parent->people[it.key()] = it.value();
-				quad->parent->people[it.key()].parent = quad;
-			}
-		}
-		quad->parent->children.clear();
-	}
-	quad = nullptr;*/
+	quad = nullptr;
 }
