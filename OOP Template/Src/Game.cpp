@@ -55,6 +55,9 @@ void Game::update() {
 	}
 
 	quadtree->update(quadtree->root);
+
+	std::cout << quadtree->queue.size() << std::endl;
+	quadtree->queue.clear();
 }
 
 void Game::render() {

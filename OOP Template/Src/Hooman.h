@@ -6,7 +6,7 @@ struct Quad;
 struct Hooman {
 	Hooman() {};
 	Hooman(int x, int y, SDL_Color& _color);
-	void update();
+	bool update();
 	void render();
 	void clean();
 

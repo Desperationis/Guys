@@ -97,7 +97,9 @@ Quad* Quadtree::search(int x, int y, Quad* root) {
 
 void Quadtree::update(Quad* root) {
 	for (auto it = root->people.begin(); it != root->people.end(); it++) {
-		it.value().update();
+		if (it.value().update()) {
+			queue.push_back(&it.value());
+		}
 	}
 
 	for (unsigned int id = 0; id < root->children.size(); id++) {

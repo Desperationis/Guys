@@ -10,10 +10,10 @@ Hooman::Hooman(int x, int y, SDL_Color& _color) {
 	color = _color;
 }
 
-void Hooman::update() {
+bool Hooman::update() {
 	rect->dest.x += 1;
-	parent->rect.CollideRect(*rect);
 	rect->update();
+	return !parent->rect.CollideRect(*rect);
 }
 
 void Hooman::render() {

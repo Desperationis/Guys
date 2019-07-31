@@ -18,6 +18,8 @@ struct Quad {
 struct Quadtree {
 	Quadtree();
 
+	std::vector<Hooman*> queue;
+
 	void erase(Food* food);
 	void erase(Hooman* human);
 	void render(Quad* root);
