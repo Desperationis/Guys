@@ -30,18 +30,11 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 
 	quadtree = new Quadtree();
 
-	for (unsigned int i = 0; i < 4; i++) {
-		//quadtree->insert(rand() % 800, rand() % 800, quadtree->root, quadtree->HOOMAN);
+	for (unsigned int i = 0; i < 40; i++) {
+		quadtree->insert(rand() % 800, rand() % 800, quadtree->root, quadtree->HOOMAN);
 	}
-	for (unsigned int i = 0; i < 4; i++) {
-		//quadtree->insert(rand() % 800, rand() % 800, quadtree->root, quadtree->FOOD);
-	}
-	try {
-		quadtree->search(801, 800, quadtree->root);
-	}
-	catch (std::exception& e) {
-		std::cout << e.what() << std::endl;
-		system("pause");
+	for (unsigned int i = 0; i < 40; i++) {
+		quadtree->insert(rand() % 800, rand() % 800, quadtree->root, quadtree->FOOD);
 	}
 }
 
@@ -59,6 +52,7 @@ void Game::update() {
 		}
 		std::cout << avgFPS << std::endl;
 	}
+
 
 	quadtree->update(quadtree->root);
 }

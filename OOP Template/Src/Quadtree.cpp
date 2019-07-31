@@ -22,6 +22,14 @@ Quadtree::Quadtree() {
 void Quadtree::render(Quad* root) {
 	root->rect.renderOutline(255, 0, 0);
 
+	for (auto it = root->people.begin(); it != root->people.end(); it++) {
+		it.value().render();
+	}
+
+	for (auto it = root->foods.begin(); it != root->foods.end(); it++) {
+		it.value().render();
+	}
+
 	for (int i = 0; i < root->children.size(); i++) {
 		render(&root->children[i]);
 	}
@@ -31,6 +39,74 @@ void Quadtree::update(Quad* root) {
 	for (auto it = root->people.begin(); it != root->people.end(); it++) {
 		it.value().update();
 	}
+
+	for (int i = 0; i < root->children.size(); i++) {
+		update(&root->children[i]);
+	}
+}
+
+void Quadtree::insert(int x, int y, Quad* root, ENTITIES e) {
+	Quad* quad = nullptr;
+	try {
+		quad = search(x, y, root);
+	}
+	catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+		system("pause");
+		return;
+	}
+	SDL_Rect& dest = quad->rect.dest;
+
+	switch (e) {
+	case FOOD:
+		quad->foods[Food::counter] = Food(x, y);
+		quad->foods[Food::counter].parent = quad;
+		Food::counter++;
+		break;
+	case HOOMAN:
+		SDL_Color c{ 255,0,0,255 };
+		quad->people[Hooman::counter] = Hooman(x, y, c);
+		quad->people[Hooman::counter].parent = quad;
+		Hooman::counter++;
+		break;
+	}
+
+	if (quad->foods.size() + quad->people.size() >= 4) {
+		quad->children.push_back(Quad(dest.x, dest.y, dest.w / 2, dest.h / 2));
+		quad->children.push_back(Quad(dest.x + (dest.w / 2), dest.y, dest.w / 2, dest.h / 2));
+		quad->children.push_back(Quad(dest.x, dest.y + (dest.h / 2), dest.w / 2, dest.h / 2));
+		quad->children.push_back(Quad(dest.x + (dest.w / 2), dest.y + (dest.h / 2), dest.w / 2, dest.h / 2));
+
+		for (unsigned int i = 0; i < quad->children.size(); i++) {
+			quad->children[i].parent = quad;
+		}
+
+		for (auto it = quad->foods.begin(); it != quad->foods.end(); it++) {
+			for (unsigned int i = 0; i < quad->children.size(); i++) {
+				//change to collide rect for higher accuracy over performance
+				if (quad->children[i].rect.CollidePoint(it.value().rect->dest.x, it.value().rect->dest.y)) {
+					insert(it.value().rect->dest.x, it.value().rect->dest.y, &quad->children[i], FOOD);
+					it.value().clean();
+					break;
+				}
+
+			}
+		}
+		for (auto it = quad->people.begin(); it != quad->people.end(); it++) {
+			for (unsigned int i = 0; i < quad->children.size(); i++) {
+				//change to collide rect for higher accuracy over performance
+				if (quad->children[i].rect.CollidePoint(it.value().rect->dest.x, it.value().rect->dest.y)) {
+					insert(it.value().rect->dest.x, it.value().rect->dest.y, &quad->children[i], HOOMAN);
+					it.value().clean();
+					break;
+				}
+
+			}
+		}
+		quad->foods.clear();
+		quad->people.clear();
+	}
+	quad = nullptr;
 }
 
 Quad* Quadtree::search(int x, int y, Quad* root) {
@@ -55,11 +131,14 @@ Quad* Quadtree::search(int x, int y, Quad* root) {
 		tmp += buffer.str() + "}";
 		buffer.str("");
 		throw std::exception(tmp.c_str());
+		return nullptr;
 	}
 
 
 	for (int i = 0; i < root->children.size(); i++) {
-		return search(x, y, &root->children[i]);
+		if (root->children[i].rect.CollidePoint(x, y)) {
+			return search(x, y, &root->children[i]);
+		}
 ;	}
 
 	return root;
