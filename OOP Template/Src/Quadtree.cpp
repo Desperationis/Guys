@@ -99,7 +99,6 @@ void Quadtree::update(Quad* root) {
 
 void Quadtree::erase(Food* food) {
 	Quad* quad = search(food->rect->dest.x, food->rect->dest.y, food->parent);
-	food->clean();
 	quad->foods.erase(food->id);
 	food = nullptr;
 
@@ -122,7 +121,6 @@ void Quadtree::erase(Food* food) {
 
 void Quadtree::erase(Hooman* human) {
 	Quad* quad = search(human->rect->dest.x, human->rect->dest.y, human->parent);
-	human->clean();
 	quad->people.erase(human->id);
 	human = nullptr;
 
