@@ -11,10 +11,6 @@ Hooman::Hooman(int x, int y, SDL_Color& _color) {
 }
 
 bool Hooman::update() {
-	if (rect->dest.x < 780) {
-
-		rect->dest.x += 1;
-	}
 	rect->update();
 	return !parent->rect.CollideRect(*rect);
 }

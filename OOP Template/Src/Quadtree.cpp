@@ -45,7 +45,7 @@ void Quadtree::update(Quad* root) {
 	}
 }
 
-void Quadtree::insert(int x, int y, Quad* root, ENTITIES e) {
+void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e) {
 	Quad* quad = nullptr;
 	try {
 		quad = search(x, y, root);
@@ -72,10 +72,12 @@ void Quadtree::insert(int x, int y, Quad* root, ENTITIES e) {
 	}
 
 	if (quad->foods.size() + quad->people.size() >= 4) {
-		quad->children.push_back(Quad(dest.x, dest.y, dest.w / 2, dest.h / 2));
-		quad->children.push_back(Quad(dest.x + (dest.w / 2), dest.y, dest.w / 2, dest.h / 2));
-		quad->children.push_back(Quad(dest.x, dest.y + (dest.h / 2), dest.w / 2, dest.h / 2));
-		quad->children.push_back(Quad(dest.x + (dest.w / 2), dest.y + (dest.h / 2), dest.w / 2, dest.h / 2));
+		if (quad->children.size() == 0) {
+			quad->children.push_back(Quad(dest.x, dest.y, dest.w / 2, dest.h / 2));
+			quad->children.push_back(Quad(dest.x + (dest.w / 2), dest.y, dest.w / 2, dest.h / 2));
+			quad->children.push_back(Quad(dest.x, dest.y + (dest.h / 2), dest.w / 2, dest.h / 2));
+			quad->children.push_back(Quad(dest.x + (dest.w / 2), dest.y + (dest.h / 2), dest.w / 2, dest.h / 2));
+		}
 
 		for (unsigned int i = 0; i < quad->children.size(); i++) {
 			quad->children[i].parent = quad;
@@ -109,7 +111,7 @@ void Quadtree::insert(int x, int y, Quad* root, ENTITIES e) {
 	quad = nullptr;
 }
 
-Quad* Quadtree::search(int x, int y, Quad* root) {
+Quad* Quadtree::search(int& x, int& y, Quad* root) {
 	if (!root->rect.CollidePoint(x, y)) {
 		std::string tmp = "Out of range: ";
 		std::stringstream buffer; buffer << x;
