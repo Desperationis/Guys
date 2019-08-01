@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL.h"
+#include "Tools/Rect.h"
 
 struct Rect;
 struct Quad;
@@ -15,7 +16,7 @@ struct Hooman {
 	bool dead = false;
 
 	Uint32 id = 0;
-	Rect* rect;
+	Rect rect;
 	Quad* parent = nullptr;
 	SDL_Color color;
 };

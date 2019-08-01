@@ -105,8 +105,8 @@ void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e, bool dead) {
 		for (auto it = quad->people.begin(); it != quad->people.end(); it++) {
 			for (unsigned int i = 0; i < quad->children.size(); i++) {
 				//change to collide rect for higher accuracy over performance
-				if (quad->children[i].rect.CollidePoint(it.value().rect->dest.x, it.value().rect->dest.y)) {
-					insert(it.value().rect->dest.x, it.value().rect->dest.y, &quad->children[i], HOOMAN, it.value().dead);
+				if (quad->children[i].rect.CollidePoint(it.value().rect.dest.x, it.value().rect.dest.y)) {
+					insert(it.value().rect.dest.x, it.value().rect.dest.y, &quad->children[i], HOOMAN, it.value().dead);
 					it.value().clean();
 					break;
 				}
@@ -177,6 +177,7 @@ void Quadtree::erase(Food* food) {
 
 void Quadtree::erase(Hooman* human) {
 	Quad* quad = human->parent;
+	human->clean();
 	quad->people.erase(human->id);
 	human = nullptr;
 	quad = nullptr;
