@@ -45,6 +45,7 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 bool Lclicked = false;
 bool Rclicked = false;
 bool Lshift = false;
+std::vector<Hooman> tmp;
 void Game::update() {
 	//refreshes frame rate counter
 	if (counter) {
@@ -92,7 +93,7 @@ void Game::update() {
 	Lshift = InputSystem::keys[SDL_SCANCODE_LSHIFT];
 
 	// Debug Tools
-	std::vector<Hooman> tmp;
+
 	quadtree->update(quadtree->root);
 
 	for (int i = 0; i < quadtree->queue.size(); i++) {
@@ -102,7 +103,7 @@ void Game::update() {
 	for (int i = 0; i < tmp.size(); i++) {
 		if (quadtree->root->rect.CollidePoint(tmp[i].rect.dest.x, tmp[i].rect.dest.y)) {
 			quadtree->insert(tmp[i].rect.dest.x, tmp[i].rect.dest.y, quadtree->root, quadtree->HOOMAN, tmp[i].dead);
-		} //this changes the position of the children inside queue
+		} 
 		tmp[i].clean();
 	}
 
