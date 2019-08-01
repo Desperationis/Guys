@@ -13,7 +13,8 @@ Hooman::Hooman(int x, int y, SDL_Color& _color) {
 bool Hooman::update() {
 	rect->dest.x += 1;
 	rect->update();
-	dead = !parent->rect.CollideRect(*rect) || parent == nullptr;
+	dead = !parent->rect.CollideRect(*rect);
+
 	return dead;
 }
 

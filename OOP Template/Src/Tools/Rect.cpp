@@ -74,6 +74,7 @@ void Rect::setup(const int x, const int y, const int w, const int h) {
 
 	center[0] = x + (w / 2);
 	center[1] = y + (h / 2);
+
 }
 
 void Rect::update() {

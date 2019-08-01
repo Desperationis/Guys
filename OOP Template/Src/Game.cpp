@@ -30,7 +30,7 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 
 	quadtree = new Quadtree();
 
-	for (unsigned int i = 0; i < 200; i++) {
+	for (unsigned int i = 0; i < 100; i++) {
 		int x = (rand() % 799) + 1;
 		int y = (rand() % 799) + 1;
 		quadtree->insert(x, y, quadtree->root, quadtree->HOOMAN);
@@ -44,6 +44,7 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 
 bool Lclicked = false;
 bool Rclicked = false;
+bool Lshift = false;
 void Game::update() {
 	//refreshes frame rate counter
 	if (counter) {
@@ -70,7 +71,7 @@ void Game::update() {
 	Lclicked = InputSystem::mouse[InputSystem::MOUSE::LEFT];
 	Rclicked = InputSystem::mouse[InputSystem::MOUSE::RIGHT];
 
-	if (InputSystem::keys[SDL_SCANCODE_LSHIFT]) {
+	if (InputSystem::keys[SDL_SCANCODE_LSHIFT] && Lshift) {
 		std::cout << "Input X: ", std::cin >> x, std::cout << "\n";
 		std::cout << "Input y: ", std::cin >> y, std::cout << "\n";
 		do {
@@ -88,10 +89,12 @@ void Game::update() {
 			}
 		} while (type != 'F' && type != 'H');
 	}
+	Lshift = InputSystem::keys[SDL_SCANCODE_LSHIFT];
 
 	// Debug Tools
 
 	quadtree->update(quadtree->root);
+
 	for (int i = 0; i < quadtree->queue.size(); i++) {
 		quadtree->erase(quadtree->queue[i]);
 	}

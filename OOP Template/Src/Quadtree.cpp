@@ -177,13 +177,7 @@ void Quadtree::erase(Food* food) {
 }
 
 void Quadtree::erase(Hooman* human) {
-	Quad* quad = nullptr;
-	try {
-		quad = search(human->rect->dest.x, human->rect->dest.y, root);
-	}
-	catch (std::exception& e) {
-		human->parent->people.erase(human->id);
-	}
+	Quad* quad = human->parent;
 	quad->people.erase(human->id);
 	human = nullptr;
 	quad = nullptr;
