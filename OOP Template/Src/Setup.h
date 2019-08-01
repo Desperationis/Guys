@@ -9,3 +9,7 @@ namespace WINDOW {
 struct FOOD {
 	static const int SIZE;
 };
+
+struct QUADTREE {
+	static const int MAX_ITERATION;
+};

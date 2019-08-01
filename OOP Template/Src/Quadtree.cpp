@@ -73,7 +73,7 @@ void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e, bool dead) {
 		break;
 	}
 
-	if (quad->iteration > 4) {
+	if (quad->iteration > QUADTREE::MAX_ITERATION) {
 		quad = nullptr;
 		return;
 	}
@@ -143,7 +143,6 @@ Quad* Quadtree::search(int& x, int& y, Quad* root) {
 		throw std::exception(tmp.c_str());
 		return root;
 	}
-
 
 	for (int i = 0; i < root->children.size(); i++) {
 		if (root->children[i].rect.CollidePoint(x, y)) {
