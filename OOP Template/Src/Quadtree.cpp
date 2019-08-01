@@ -167,7 +167,7 @@ void Quadtree::erase(Food* food) {
 		for (unsigned int i = 0; i < quad->parent->children.size(); i++) {
 			for (auto it = quad->parent->children[i].foods.begin(); it != quad->parent->children[i].foods.end(); it++) {
 				quad->parent->foods[it.key()] = it.value();
-				quad->parent->foods[it.key()].parent = quad;
+				quad->parent->foods[it.key()].parent = quad->parent;
 			}
 		}
 		quad->parent->children.clear();

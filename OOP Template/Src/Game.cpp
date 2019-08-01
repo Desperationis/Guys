@@ -33,12 +33,12 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 	for (unsigned int i = 0; i < 100; i++) {
 		int x = (rand() % 799) + 1;
 		int y = (rand() % 799) + 1;
-		quadtree->insert(x, y, quadtree->root, quadtree->HOOMAN);
+		//quadtree->insert(x, y, quadtree->root, quadtree->HOOMAN);
 	}
 	for (unsigned int i = 0; i < 40; i++) {
 		int x = (rand() % 799) + 1;
 		int y = (rand() % 799) + 1;
-		quadtree->insert(x, y, quadtree->root, quadtree->FOOD);
+		//quadtree->insert(x, y, quadtree->root, quadtree->FOOD);
 	}
 }
 
@@ -92,13 +92,22 @@ void Game::update() {
 	Lshift = InputSystem::keys[SDL_SCANCODE_LSHIFT];
 
 	// Debug Tools
-
+	std::vector<Hooman> tmp;
 	quadtree->update(quadtree->root);
 
 	for (int i = 0; i < quadtree->queue.size(); i++) {
+		tmp.push_back(*quadtree->queue[i]);
 		quadtree->erase(quadtree->queue[i]);
 	}
+	for (int i = 0; i < tmp.size(); i++) {
+		if (quadtree->root->rect.CollidePoint(tmp[i].rect->dest.x, tmp[i].rect->dest.y)) {
+			quadtree->insert(tmp[i].rect->dest.x, tmp[i].rect->dest.y, quadtree->root, quadtree->HOOMAN, tmp[i].dead);
+		} //this changes the position of the children inside queue
+		tmp[i].clean();
+	}
+
 	quadtree->queue.clear();
+	tmp.clear();
 }
 
 void Game::render() {
