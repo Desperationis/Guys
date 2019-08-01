@@ -28,7 +28,7 @@ bool Rect::CollideRect(const FRect& target) const {
 }
 
 bool Rect::CollidePoint(const int x, const int y) const {
-	return (x <= right && x > left && y <= bottom && y > top);
+	return (x <= right && x >= left && y <= bottom && y >= top);
 }
 
 void Rect::renderOutline(int R = 255, int G = 0, int B = 0) const {

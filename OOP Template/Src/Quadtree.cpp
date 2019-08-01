@@ -73,6 +73,11 @@ void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e, bool dead) {
 		break;
 	}
 
+	if (quad->iteration > 4) {
+		quad = nullptr;
+		return;
+	}
+
 	if (quad->foods.size() + quad->people.size() >= 4) {
 		if (quad->children.size() == 0) {
 			quad->children.push_back(Quad(dest.x, dest.y, dest.w / 2, dest.h / 2));
@@ -83,6 +88,7 @@ void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e, bool dead) {
 
 		for (unsigned int i = 0; i < quad->children.size(); i++) {
 			quad->children[i].parent = quad;
+			quad->children[i].iteration = quad->iteration + 1;
 		}
 
 		for (auto it = quad->foods.begin(); it != quad->foods.end(); it++) {

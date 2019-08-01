@@ -8,6 +8,7 @@ struct Quad {
 	Quad(int x, int y, int w, int h);
 	~Quad();
 
+	int iteration = 0;
 	Quad* parent;
 	Rect rect;
 	std::vector<Quad> children;
