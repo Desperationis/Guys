@@ -213,3 +213,28 @@ void Quadtree::erase(Hooman* human) {
 	human = nullptr;
 	quad = nullptr;
 }
+
+void Quadtree::clear(Quad* quad) {
+
+	//if lowest, delete children
+	//assign each quad->parent to nullptr
+
+	if (quad->foods.size() != 0 || quad->people.size() != 0) {
+		for (auto it = quad->foods.begin(); it != quad->foods.end(); it++) {
+			it.value().clean();
+		}
+		for (auto it = quad->people.begin(); it != quad->people.end(); it++) {
+			it.value().clean();
+		}
+
+		quad->foods.clear();
+		quad->people.clear();
+	}
+
+	for (int i = 0; i < quad->children.size(); i++) {
+		clear(&quad->children[i]);
+	}
+	quad->children.clear();
+
+	quad->parent = nullptr;
+}

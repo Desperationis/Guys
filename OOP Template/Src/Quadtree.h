@@ -23,6 +23,7 @@ struct Quadtree {
 
 	std::vector<Hooman*> queue;
 
+	void clear(Quad* root);
 	void erase(Food* food);
 	void erase(Hooman* human);
 	void render(Quad* root);

@@ -30,15 +30,15 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 
 	quadtree = new Quadtree();
 
-	for (unsigned int i = 0; i < 100; i++) {
-		int x = (rand() % 799) + 1;
-		int y = (rand() % 799) + 1;
-		//quadtree->insert(x, y, quadtree->root, quadtree->HOOMAN);
+	for (unsigned int i = 0; i < 1000; i++) {
+		int x = rand() % 801;
+		int y = rand() % 801;
+		quadtree->insert(x, y, quadtree->root, quadtree->HOOMAN);
 	}
 	for (unsigned int i = 0; i < 40; i++) {
-		int x = (rand() % 799) + 1;
-		int y = (rand() % 799) + 1;
-		//quadtree->insert(x, y, quadtree->root, quadtree->FOOD);
+		int x = rand() % 801;
+		int y = rand() % 801;
+		quadtree->insert(x, y, quadtree->root, quadtree->FOOD);
 	}
 }
 
@@ -91,6 +91,10 @@ void Game::update() {
 		} while (type != 'F' && type != 'H');
 	}
 	Lshift = InputSystem::keys[SDL_SCANCODE_LSHIFT];
+
+	if (InputSystem::keys[SDL_SCANCODE_GRAVE]) {
+		quadtree->clear(quadtree->root);
+	}
 
 	// Debug Tools
 

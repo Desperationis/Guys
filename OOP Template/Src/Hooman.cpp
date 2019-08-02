@@ -19,6 +19,12 @@ bool Hooman::update() {
 
 void Hooman::render() {
 	rect.renderFill(color);
+
+	for (auto it = parent->foods.begin(); it != parent->foods.end(); it++) {
+		if (it.value().rect.CollideRect(rect)) {
+			rect.renderFill(0, 0, 0, 255);
+		}
+	}
 }
 
 void Hooman::clean() {
