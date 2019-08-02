@@ -1,7 +1,7 @@
 #pragma once
 #include "includes.h"
+#include "Tools/Rect.h"
 
-struct Rect;
 struct Quad;
 struct Food {
 	Food();
@@ -11,7 +11,7 @@ struct Food {
 
 	bool dead = false;
 	Quad* parent = nullptr;
-	Rect* rect = nullptr;
+	Rect rect;
 	Uint32 id;
 	static const int value;
 	static Uint32 counter;

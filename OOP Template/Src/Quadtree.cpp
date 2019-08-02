@@ -62,12 +62,12 @@ void Quadtree::update(Quad* root) {
 		}
 
 		if (sum < 4) {
-			std::cout << "@";
 			// move data up from children
 			for (int i = 0; i < root->children.size(); i++) {
 				for (auto it = root->children[i].foods.begin(); it != root->children[i].foods.end(); it++) {
 					root->foods[it.key()] = it.value();
 					root->foods[it.key()].parent = root;
+					it.value().clean();
 				}
 				for (auto it = root->children[i].people.begin(); it != root->children[i].people.end(); it++) {
 					root->people[it.key()] = it.value();
@@ -140,8 +140,8 @@ void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e, bool dead) {
 		for (auto it = quad->foods.begin(); it != quad->foods.end(); it++) {
 			for (unsigned int i = 0; i < quad->children.size(); i++) {
 				//change to collide rect for higher accuracy over performance
-				if (quad->children[i].rect.CollidePoint(it.value().rect->dest.x, it.value().rect->dest.y)) {
-					insert(it.value().rect->dest.x, it.value().rect->dest.y, &quad->children[i], FOOD, it.value().dead);
+				if (quad->children[i].rect.CollidePoint(it.value().rect.dest.x, it.value().rect.dest.y)) {
+					insert(it.value().rect.dest.x, it.value().rect.dest.y, &quad->children[i], FOOD, it.value().dead);
 					it.value().clean();
 					break;
 				}
@@ -200,24 +200,9 @@ Quad* Quadtree::search(int& x, int& y, Quad* root) {
 }
 
 void Quadtree::erase(Food* food) {
-	Quad* quad = search(food->rect->dest.x, food->rect->dest.y, root);
+	Quad* quad = food->parent;
 	quad->foods.erase(food->id);
 	food = nullptr;
-
-	int sum = 0;
-	for (unsigned int i = 0; i < quad->parent->children.size(); i++) {
-		sum += quad->parent->children[i].foods.size();
-	}
-
-	if (sum < 4) {
-		for (unsigned int i = 0; i < quad->parent->children.size(); i++) {
-			for (auto it = quad->parent->children[i].foods.begin(); it != quad->parent->children[i].foods.end(); it++) {
-				quad->parent->foods[it.key()] = it.value();
-				quad->parent->foods[it.key()].parent = quad->parent;
-			}
-		}
-		quad->parent->children.clear();
-	}
 	quad = nullptr;
 }
 
