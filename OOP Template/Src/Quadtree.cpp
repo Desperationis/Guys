@@ -36,6 +36,52 @@ void Quadtree::render(Quad* root) {
 }
 
 void Quadtree::update(Quad* root) {
+	// ERASING CODE HERE
+	bool flag = true;
+	if (root->children.size() != 0) {
+		for (int i = 0; i < root->children.size(); i++) {
+			if (root->children[i].children.size() != 0) {
+				flag = false;
+				break;
+			}
+		}
+	}
+
+	//if I have children
+		//check if they are lowest subdivision
+		//if they are, flag = true;
+
+
+	if (flag) {
+		// if root children don't have children
+		int sum = 0;
+
+		for (int i = 0; i < root->children.size(); i++) {
+			sum += root->children[i].foods.size();
+			sum += root->children[i].people.size();
+		}
+
+		if (sum < 4) {
+			std::cout << "@";
+			// move data up from children
+			for (int i = 0; i < root->children.size(); i++) {
+				for (auto it = root->children[i].foods.begin(); it != root->children[i].foods.end(); it++) {
+					root->foods[it.key()] = it.value();
+					root->foods[it.key()].parent = root;
+				}
+				for (auto it = root->children[i].people.begin(); it != root->children[i].people.end(); it++) {
+					root->people[it.key()] = it.value();
+					root->people[it.key()].parent = root;
+					it.value().clean();
+				}
+			}
+			root->children.clear();
+
+		}
+	}
+
+	// ERASING CODE HERE
+
 	for (auto it = root->people.begin(); it != root->people.end(); it++) {
 		if (it.value().update()) {
 			queue.push_back(&it.value());
