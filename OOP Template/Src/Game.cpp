@@ -29,12 +29,12 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 
 	quadtree = new Quadtree();
 
-	for (unsigned int i = 0; i < 1000; i++) {
+	for (unsigned int i = 0; i < 0; i++) {
 		int x = rand() % 801;
 		int y = rand() % 801;
 		quadtree->insert(x, y, quadtree->root, quadtree->HOOMAN);
 	}
-	for (unsigned int i = 0; i < 40; i++) {
+	for (unsigned int i = 0; i < 0; i++) {
 		int x = rand() % 801;
 		int y = rand() % 801;
 		quadtree->insert(x, y, quadtree->root, quadtree->FOOD);
@@ -104,9 +104,11 @@ void Game::update() {
 		quadtree->erase(quadtree->queue[i]);
 	}
 	for (unsigned int i = 0; i < tmp.size(); i++) {
-		if (quadtree->root->rect.CollidePoint(tmp[i].rect.dest.x, tmp[i].rect.dest.y)) {
-			quadtree->insert(tmp[i].rect.dest.x, tmp[i].rect.dest.y, quadtree->root, quadtree->HOOMAN, tmp[i].dead);
-		} 
+		if (!tmp[i].plant) {
+			if (quadtree->root->rect.CollidePoint(tmp[i].rect.dest.x, tmp[i].rect.dest.y)) {
+				quadtree->insert(tmp[i].rect.dest.x, tmp[i].rect.dest.y, quadtree->root, quadtree->HOOMAN, tmp[i].dead);
+			} 
+		}
 		tmp[i].clean();
 	}
 
