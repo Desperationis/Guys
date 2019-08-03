@@ -163,9 +163,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Food.cpp" />
+    <ClCompile Include="Src\Entity.cpp" />
     <ClCompile Include="Src\Game.cpp" />
-    <ClCompile Include="Src\Hooman.cpp" />
     <ClCompile Include="Src\Quadtree.cpp" />
     <ClCompile Include="Src\Setup.cpp" />
     <ClCompile Include="Src\Tools\Font.cpp" />
@@ -177,9 +176,8 @@
     <ClCompile Include="Src\Tools\TM.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Food.h" />
+    <ClInclude Include="Src\Entity.h" />
     <ClInclude Include="Src\Game.h" />
-    <ClInclude Include="Src\Hooman.h" />
     <ClInclude Include="Src\includes.h" />
     <ClInclude Include="Src\Quadtree.h" />
     <ClInclude Include="Src\Setup.h" />

@@ -1,8 +1,7 @@
 #pragma once
 #include "Tools/Rect.h"
 #include "includes.h"
-#include "Food.h"
-#include "Hooman.h"
+#include "Entity.h"
 
 struct Quad {
 	Quad(int x, int y, int w, int h);
@@ -12,8 +11,7 @@ struct Quad {
 	Quad* parent;
 	Rect rect;
 	std::vector<Quad> children;
-	tsl::hopscotch_map<Uint32, Food> foods;
-	tsl::hopscotch_map<Uint32, Hooman> people;
+	tsl::hopscotch_map<Uint32, Entity> entities;
 };
 
 struct Quadtree {
@@ -21,11 +19,10 @@ struct Quadtree {
 
 	enum ENTITIES { FOOD, HOOMAN };
 
-	std::vector<Hooman*> queue;
+	std::vector<Entity*> queue;
 
 	void clear(Quad* root);
-	void erase(Food* food);
-	void erase(Hooman* human);
+	void erase(Entity* entity);
 	void render(Quad* root);
 	void update(Quad* root);
 	void insert(int& x, int& y, Quad* root, ENTITIES e, bool dead = false);

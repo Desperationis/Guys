@@ -7,7 +7,6 @@
 #include "Quadtree.h"
 
 Quadtree* quadtree;
-Food* node;
 
 Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 flags) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -45,7 +44,7 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 bool Lclicked = false;
 bool Rclicked = false;
 bool Lshift = false;
-std::vector<Hooman> tmp;
+std::vector<Entity> tmp;
 void Game::update() {
 	//refreshes frame rate counter
 	if (counter) {
@@ -100,11 +99,11 @@ void Game::update() {
 
 	quadtree->update(quadtree->root);
 
-	for (int i = 0; i < quadtree->queue.size(); i++) {
+	for (unsigned int i = 0; i < quadtree->queue.size(); i++) {
 		tmp.push_back(*quadtree->queue[i]);
 		quadtree->erase(quadtree->queue[i]);
 	}
-	for (int i = 0; i < tmp.size(); i++) {
+	for (unsigned int i = 0; i < tmp.size(); i++) {
 		if (quadtree->root->rect.CollidePoint(tmp[i].rect.dest.x, tmp[i].rect.dest.y)) {
 			quadtree->insert(tmp[i].rect.dest.x, tmp[i].rect.dest.y, quadtree->root, quadtree->HOOMAN, tmp[i].dead);
 		} 
