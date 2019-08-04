@@ -18,6 +18,24 @@ Quadtree::Quadtree() {
 	root = new Quad(0, 0, WINDOW::WIDTH, WINDOW::HEIGHT);
 }
 
+void Quadtree::clearQueue() {
+	for (unsigned int i = 0; i < queue.size(); i++) {
+		tmp.push_back(*queue[i]);
+		erase(queue[i]);
+	}
+	for (unsigned int i = 0; i < tmp.size(); i++) {
+		if (!tmp[i].plant) {
+			if (root->rect.CollidePoint(tmp[i].rect.dest.x, tmp[i].rect.dest.y)) {
+				insert(tmp[i].rect.dest.x, tmp[i].rect.dest.y, root, HOOMAN, tmp[i].dead);
+			}
+		}
+		tmp[i].clean();
+	}
+
+	queue.clear();
+	tmp.clear();
+}
+
 void Quadtree::render(Quad* root) {
 	root->rect.renderOutline(255, 0, 0);
 

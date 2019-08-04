@@ -5,6 +5,7 @@
 #include "Tools/InputSystem.h"
 #include "Tools/Rect.h"
 #include "Quadtree.h"
+#include "Tools/DebugTools.h"
 
 Quadtree* Game::quadtree;
 
@@ -28,6 +29,7 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 	SDL_PollEvent(&event);
 
 	quadtree = new Quadtree();
+	debugTools = new DebugTools();
 
 	for (unsigned int i = 0; i < 0; i++) {
 		int x = rand() % 801;
@@ -41,10 +43,6 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 	}
 }
 
-bool Lclicked = false;
-bool Rclicked = false;
-bool Lshift = false;
-std::vector<Entity> tmp;
 void Game::update() {
 	//refreshes frame rate counter
 	if (counter) {
@@ -60,60 +58,12 @@ void Game::update() {
 		std::cout << avgFPS << std::endl;
 	}
 
-	// Debug Tools
-	int x = InputSystem::mouse[InputSystem::MOUSE::X];
-	int y = InputSystem::mouse[InputSystem::MOUSE::Y];
-	char type = '-';
-	if (InputSystem::mouse[InputSystem::MOUSE::LEFT] && !Lclicked) 
-		quadtree->insert(x, y, quadtree->root, Quadtree::FOOD);
-	if (InputSystem::mouse[InputSystem::MOUSE::RIGHT] && !Rclicked) 
-		quadtree->insert(x, y, quadtree->root, Quadtree::HOOMAN);
-	Lclicked = InputSystem::mouse[InputSystem::MOUSE::LEFT];
-	Rclicked = InputSystem::mouse[InputSystem::MOUSE::RIGHT];
-
-	if (InputSystem::keys[SDL_SCANCODE_LSHIFT] && Lshift) {
-		std::cout << "Input X: ", std::cin >> x, std::cout << "\n";
-		std::cout << "Input y: ", std::cin >> y, std::cout << "\n";
-		do {
-			std::cout << "Type [F / H]: ", std::cin >> type, std::cout << "\n";
-			switch (type) {
-			case 'H':
-				quadtree->insert(x, y, quadtree->root, Quadtree::HOOMAN);
-				break;
-			case 'F':
-				quadtree->insert(x, y, quadtree->root, Quadtree::FOOD);
-				break;
-			default:
-				std::cout << "Didn't quite catch that.\n" << std::endl;
-				break;
-			}
-		} while (type != 'F' && type != 'H');
-	}
-	Lshift = InputSystem::keys[SDL_SCANCODE_LSHIFT];
-
-	if (InputSystem::keys[SDL_SCANCODE_GRAVE]) {
-		quadtree->clear(quadtree->root);
-	}
-
+	// Debug Tool
+	debugTools->update();
 	// Debug Tools
 
 	quadtree->update(quadtree->root);
-
-	for (unsigned int i = 0; i < quadtree->queue.size(); i++) {
-		tmp.push_back(*quadtree->queue[i]);
-		quadtree->erase(quadtree->queue[i]);
-	}
-	for (unsigned int i = 0; i < tmp.size(); i++) {
-		if (!tmp[i].plant) {
-			if (quadtree->root->rect.CollidePoint(tmp[i].rect.dest.x, tmp[i].rect.dest.y)) {
-				quadtree->insert(tmp[i].rect.dest.x, tmp[i].rect.dest.y, quadtree->root, quadtree->HOOMAN, tmp[i].dead);
-			} 
-		}
-		tmp[i].clean();
-	}
-
-	quadtree->queue.clear();
-	tmp.clear();
+	quadtree->clearQueue();
 }
 
 void Game::render() {

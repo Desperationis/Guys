@@ -2,6 +2,7 @@
 #include "includes.h"
 
 class Timer;
+class DebugTools;
 struct Quadtree;
 class Game {
 public:
@@ -15,9 +16,10 @@ public:
 
 private:
 	SDL_Event event;
-	Timer* fpsTimer;
 	int countedFrames = 0;
 	bool running = false;
 	bool counter = false;
+	Timer* fpsTimer;
 	SDL_Window* window;
+	DebugTools* debugTools;
 };

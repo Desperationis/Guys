@@ -167,6 +167,7 @@
     <ClCompile Include="Src\Game.cpp" />
     <ClCompile Include="Src\Quadtree.cpp" />
     <ClCompile Include="Src\Setup.cpp" />
+    <ClCompile Include="Src\Tools\DebugTools.cpp" />
     <ClCompile Include="Src\Tools\Font.cpp" />
     <ClCompile Include="Src\Tools\FRect.cpp" />
     <ClCompile Include="Src\Tools\InputSystem.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Src\includes.h" />
     <ClInclude Include="Src\Quadtree.h" />
     <ClInclude Include="Src\Setup.h" />
+    <ClInclude Include="Src\Tools\DebugTools.h" />
     <ClInclude Include="Src\Tools\FRect.h" />
     <ClInclude Include="Src\Tools\InputSystem.h" />
     <ClInclude Include="Src\Tools\Font.h" />

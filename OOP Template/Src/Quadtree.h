@@ -20,7 +20,9 @@ struct Quadtree {
 	enum ENTITIES { FOOD, HOOMAN };
 
 	std::vector<Entity*> queue;
+	std::vector<Entity> tmp;
 
+	void clearQueue();
 	void clear(Quad* root);
 	void erase(Entity* entity);
 	void render(Quad* root);
