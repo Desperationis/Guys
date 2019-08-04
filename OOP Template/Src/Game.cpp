@@ -63,7 +63,6 @@ void Game::update() {
 	// Debug Tools
 
 	quadtree->update(quadtree->root);
-	quadtree->clearQueue();
 }
 
 void Game::render() {

@@ -91,14 +91,14 @@ void Quadtree::update(Quad* root) {
 	for (auto it = root->entities.begin(); it != root->entities.end(); it++) {
 		if (it.value().update()) {
 			queue.push_back(&it.value());
-			//FIX THIS IF YOU WANT TO ERASE PLHANT
-			//OTHERWISE PLANT WILL NOT DIE WHEN dead = true
 		}
 	}
 
 	for (unsigned int i = 0; i < root->children.size(); i++) {
 		update(&root->children[i]);
 	}
+
+	clearQueue();
 }
 
 void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e, bool dead) {
