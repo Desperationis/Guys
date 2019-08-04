@@ -2,6 +2,7 @@
 #include "Quadtree.h"
 #include "Setup.h"
 #include "Game.h"
+#include "limits.h"
 
 Uint32 Entity::counter = 0;
 
@@ -13,22 +14,25 @@ Entity::Entity(int x, int y, SDL_Color _color) {
 
 bool Entity::update() {
 	if (plant) return dead;
-	
-
-
-	rect.update();
 
 	eyes.dest.x = rect.dest.x - 50;
 	eyes.dest.y = rect.dest.y - 50;
 	eyes.dest.w = 100;
 	eyes.dest.h = 100;
 
-
 	eyes.update();
+
+	look();
+
+
 	dead = !parent->rect.CollideRect(rect);
+	return dead;
+}
+
+void Entity::look() {
 	search(Game::quadtree->root);
 
-	int lowest = 1000000;
+	int lowest = INT_MAX;
 	Entity* entity = nullptr;
 	bool found = false;
 
@@ -70,12 +74,6 @@ bool Entity::update() {
 			entity->dead = true;
 		}
 	}
-
-
-
-
-
-	return dead;
 }
 
 void Entity::render() {

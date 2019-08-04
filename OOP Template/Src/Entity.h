@@ -10,6 +10,7 @@ struct Entity {
 	bool update();
 	void render();
 	void clean();
+	void look();
 	void search(Quad* root);
 
 	static Uint32 counter;
