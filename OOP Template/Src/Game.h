@@ -2,6 +2,7 @@
 #include "includes.h"
 
 class Timer;
+struct Quadtree;
 class Game {
 public:
 	Game(const char* name, int xpos, int ypos, int width, int height, Uint32 flags);
@@ -9,6 +10,9 @@ public:
 	void render();
 	void events();
 	bool isRunning() const;
+
+	static Quadtree* quadtree;
+
 private:
 	SDL_Event event;
 	Timer* fpsTimer;

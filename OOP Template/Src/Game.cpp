@@ -6,7 +6,7 @@
 #include "Tools/Rect.h"
 #include "Quadtree.h"
 
-Quadtree* quadtree;
+Quadtree* Game::quadtree;
 
 Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 flags) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {

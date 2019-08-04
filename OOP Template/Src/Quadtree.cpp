@@ -19,7 +19,7 @@ Quadtree::Quadtree() {
 }
 
 void Quadtree::render(Quad* root) {
-	root->rect.renderOutline(255, 0, 0);
+	//root->rect.renderOutline(255, 0, 0);
 
 	for (auto it = root->entities.begin(); it != root->entities.end(); it++) {
 		it.value().render();
@@ -180,7 +180,6 @@ Quad* Quadtree::search(int& x, int& y, Quad* root) {
 
 	return root;
 }
-
 
 void Quadtree::erase(Entity* entity) {
 	Quad* quad = entity->parent;
