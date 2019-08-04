@@ -13,33 +13,7 @@ Entity::Entity(int x, int y, SDL_Color _color) {
 
 bool Entity::update() {
 	if (plant) return dead;
-
-	/*
-	for (auto it = parent->entities.begin(); it != parent->entities.end(); it++) {
-		if (it.value().plant) {
-
-			if (rect.dest.x < it.value().rect.dest.x) {
-				rect.dest.x += 1;
-			}
-			if (rect.dest.x > it.value().rect.dest.x) {
-				rect.dest.x -= 1;
-			}
-			if (rect.dest.y < it.value().rect.dest.y) {
-				rect.dest.y += 1;
-			}
-			if (rect.dest.y > it.value().rect.dest.y) {
-				rect.dest.y -= 1;
-			}
-
-			rect.update();
-
-			if (it.value().rect.CollideRect(rect)) {
-				it.value().dead = true;
-			}
-			break;
-		}
-	}
-	*/
+	
 
 
 	rect.update();
@@ -54,6 +28,53 @@ bool Entity::update() {
 	dead = !parent->rect.CollideRect(rect);
 	search(Game::quadtree->root);
 
+	int lowest = 1000000;
+	Entity* entity = nullptr;
+	bool found = false;
+
+	for (int i = 0; i < searches.size(); i++) {
+		for (auto it = searches[i]->entities.begin(); it != searches[i]->entities.end(); it++) {
+			if (it.value().plant) {
+				if (it.value().rect.CollideRect(eyes) && abs(it.value().rect.dest.x - rect.dest.x) +
+					abs(it.value().rect.dest.y - rect.dest.y) < lowest) {
+					lowest = abs(it.value().rect.dest.x - rect.dest.x) +
+						abs(it.value().rect.dest.y - rect.dest.y);
+					entity = &it.value();
+					found = true;
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < searches.size(); i++) {
+		searches[i] = nullptr;
+	}
+
+	searches.clear();
+	if (found) {
+		if (rect.dest.x < entity->rect.dest.x) {
+			rect.dest.x += 1;
+		}
+		if (rect.dest.x > entity->rect.dest.x) {
+			rect.dest.x -= 1;
+		}
+		if (rect.dest.y < entity->rect.dest.y) {
+			rect.dest.y += 1;
+		}
+		if (rect.dest.y > entity->rect.dest.y) {
+			rect.dest.y -= 1;
+		}
+		rect.update();
+
+		if (entity->rect.CollideRect(rect)) {
+			entity->dead = true;
+		}
+	}
+
+
+
+
+
 	return dead;
 }
 
@@ -65,13 +86,6 @@ void Entity::render() {
 		rect.renderFill(color);
 		eyes.renderOutline(0, 155, 155);
 	}
-
-	for (int i = 0; i < searches.size(); i++) {
-		searches[i]->rect.renderOutline(0, 255, 0);
-		searches[i] = nullptr;
-	}
-
-	searches.clear();
 }
 
 void Entity::clean() {
