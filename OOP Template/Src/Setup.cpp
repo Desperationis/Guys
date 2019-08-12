@@ -8,7 +8,7 @@ const int QUADTREE::MAX_ITERATION = 4;
 
 const int FOOD::SIZE = 5;
 const int FOOD::BEGIN = 100;
-const int FOOD::GROWTH = 20;
+const int FOOD::GROWTH = 1;
 
 const int HOOMAN::SIGHT = 200;
 const int HOOMAN::BEGIN = 1;
