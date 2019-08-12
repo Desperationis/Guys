@@ -6,6 +6,7 @@ struct Rect
 {
 	SDL_Rect dest;
 	int right, bottom, left, top, center[2];
+	float bufferx, buffery;
 
 
 	Rect();

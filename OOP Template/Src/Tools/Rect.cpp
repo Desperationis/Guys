@@ -4,12 +4,15 @@
 Rect::Rect() {
 	left = right = top = bottom = 0;
 	dest.x = dest.w = dest.y = dest.h = 0;
+	bufferx = buffery = 0.0f;
 	center[0] = 0;
 	center[1] = 0;
 }
 
 Rect::Rect(const int x, const int y, const int w, const int h) {
 	setup(x, y, w, h);
+	bufferx = x;
+	buffery = y;
 }
 
 

@@ -34,19 +34,15 @@ void Entity::look() {
 	search(Game::quadtree->root);
 
 	int lowest = INT_MAX;
-	bool found = false;
-	closest = nullptr;
 	if (!closest) {
 
 		for (int i = 0; i < searches.size(); i++) {
 			for (auto it = searches[i]->entities.begin(); it != searches[i]->entities.end(); it++) {
+				int distance = abs(it.value().rect.dest.x - rect.dest.x) + abs(it.value().rect.dest.y - rect.dest.y);
 				if (it.value().plant) {
-					if (it.value().rect.CollideRect(eyes) && abs(it.value().rect.dest.x - rect.dest.x) +
-						abs(it.value().rect.dest.y - rect.dest.y) < lowest) {
-						lowest = abs(it.value().rect.dest.x - rect.dest.x) +
-							abs(it.value().rect.dest.y - rect.dest.y);
+					if (it.value().rect.CollideRect(eyes) && distance < lowest) {
+						lowest = distance;
 						closest = &it.value();
-						found = true;
 					}
 				}
 			}
@@ -61,8 +57,10 @@ void Entity::look() {
 	searches.clear();
 	if (closest) {
 
-		rect.dest.x += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 4;
-		rect.dest.y += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 4;
+		rect.bufferx += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 1.0f;
+		rect.buffery += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 1.0f;
+		rect.dest.x = rect.bufferx;
+		rect.dest.y = rect.buffery;
 		rect.update();
 		
 		if (closest->rect.CollideRect(rect)) {
