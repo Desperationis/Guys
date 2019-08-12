@@ -16,10 +16,10 @@ Entity::Entity(int x, int y, SDL_Color _color) {
 bool Entity::update() {
 	if (plant) return dead;
 
-	eyes.dest.x = rect.dest.x - 500;
-	eyes.dest.y = rect.dest.y - 500;
-	eyes.dest.w = 1000;
-	eyes.dest.h = 1000;
+	eyes.dest.x = rect.dest.x - (HOOMAN::SIGHT / 2);
+	eyes.dest.y = rect.dest.y - (HOOMAN::SIGHT / 2);
+	eyes.dest.w = HOOMAN::SIGHT;
+	eyes.dest.h = HOOMAN::SIGHT;
 
 	eyes.update();
 

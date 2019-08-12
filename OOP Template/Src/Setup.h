@@ -1,15 +1,22 @@
 #pragma once
 
-namespace WINDOW {
-	const int WIDTH = 800;
-	const int HEIGHT = 800;
-	const int FPS = 60;
-}
+struct WINDOW {
+	static const int WIDTH;
+	static const int HEIGHT;
+	static const int FPS;
+};
 
 struct FOOD {
 	static const int SIZE;
+	static const int BEGIN;
+	static const int GROWTH; // How many frames before food grows
+};
+
+struct HOOMAN {
+	static const int SIGHT; // How far hooman can see
+	static const int BEGIN; // Initial numbers
 };
 
 struct QUADTREE {
-	static const int MAX_ITERATION;
+	static const int MAX_ITERATION; // How far the tree can divide
 };
