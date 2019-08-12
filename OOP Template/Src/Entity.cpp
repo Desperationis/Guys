@@ -61,21 +61,8 @@ void Entity::look() {
 	searches.clear();
 	if (closest) {
 
-		if (rect.dest.x < closest->rect.dest.x) {
-			rect.dest.x += 1;
-		}
-		if (rect.dest.x > closest->rect.dest.x) {
-			rect.dest.x -= 1;
-		}
-		if (rect.dest.y < closest->rect.dest.y) {
-			rect.dest.y += 1;
-		}
-		if (rect.dest.y > closest->rect.dest.y) {
-			rect.dest.y -= 1;
-		}
-
-		rect.dest.x += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 3;
-		rect.dest.y += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 3;
+		rect.dest.x += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 4;
+		rect.dest.y += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 4;
 		rect.update();
 		
 		if (closest->rect.CollideRect(rect)) {
