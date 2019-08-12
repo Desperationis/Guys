@@ -3,6 +3,7 @@
 #include "Setup.h"
 #include "Game.h"
 #include "limits.h"
+#include "includes.h"
 
 Uint32 Entity::counter = 0;
 
@@ -15,10 +16,10 @@ Entity::Entity(int x, int y, SDL_Color _color) {
 bool Entity::update() {
 	if (plant) return dead;
 
-	eyes.dest.x = rect.dest.x - 50;
-	eyes.dest.y = rect.dest.y - 50;
-	eyes.dest.w = 100;
-	eyes.dest.h = 100;
+	eyes.dest.x = rect.dest.x - 500;
+	eyes.dest.y = rect.dest.y - 500;
+	eyes.dest.w = 1000;
+	eyes.dest.h = 1000;
 
 	eyes.update();
 
@@ -33,45 +34,53 @@ void Entity::look() {
 	search(Game::quadtree->root);
 
 	int lowest = INT_MAX;
-	Entity* entity = nullptr;
 	bool found = false;
+	closest = nullptr;
+	if (!closest) {
 
-	for (int i = 0; i < searches.size(); i++) {
-		for (auto it = searches[i]->entities.begin(); it != searches[i]->entities.end(); it++) {
-			if (it.value().plant) {
-				if (it.value().rect.CollideRect(eyes) && abs(it.value().rect.dest.x - rect.dest.x) +
-					abs(it.value().rect.dest.y - rect.dest.y) < lowest) {
-					lowest = abs(it.value().rect.dest.x - rect.dest.x) +
-						abs(it.value().rect.dest.y - rect.dest.y);
-					entity = &it.value();
-					found = true;
+		for (int i = 0; i < searches.size(); i++) {
+			for (auto it = searches[i]->entities.begin(); it != searches[i]->entities.end(); it++) {
+				if (it.value().plant) {
+					if (it.value().rect.CollideRect(eyes) && abs(it.value().rect.dest.x - rect.dest.x) +
+						abs(it.value().rect.dest.y - rect.dest.y) < lowest) {
+						lowest = abs(it.value().rect.dest.x - rect.dest.x) +
+							abs(it.value().rect.dest.y - rect.dest.y);
+						closest = &it.value();
+						found = true;
+					}
 				}
 			}
 		}
+
+		for (int i = 0; i < searches.size(); i++) {
+			searches[i] = nullptr;
+		}
 	}
 
-	for (int i = 0; i < searches.size(); i++) {
-		searches[i] = nullptr;
-	}
 
 	searches.clear();
-	if (found) {
-		if (rect.dest.x < entity->rect.dest.x) {
+	if (closest) {
+
+		if (rect.dest.x < closest->rect.dest.x) {
 			rect.dest.x += 1;
 		}
-		if (rect.dest.x > entity->rect.dest.x) {
+		if (rect.dest.x > closest->rect.dest.x) {
 			rect.dest.x -= 1;
 		}
-		if (rect.dest.y < entity->rect.dest.y) {
+		if (rect.dest.y < closest->rect.dest.y) {
 			rect.dest.y += 1;
 		}
-		if (rect.dest.y > entity->rect.dest.y) {
+		if (rect.dest.y > closest->rect.dest.y) {
 			rect.dest.y -= 1;
 		}
-		rect.update();
 
-		if (entity->rect.CollideRect(rect)) {
-			entity->dead = true;
+		rect.dest.x += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 3;
+		rect.dest.y += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 3;
+		rect.update();
+		
+		if (closest->rect.CollideRect(rect)) {
+			closest->dead = true;
+			closest = nullptr;
 		}
 	}
 }

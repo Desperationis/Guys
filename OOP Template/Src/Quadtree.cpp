@@ -37,7 +37,7 @@ void Quadtree::clearQueue() {
 }
 
 void Quadtree::render(Quad* root) {
-	root->rect.renderOutline(255, 0, 0);
+	//root->rect.renderOutline(255, 0, 0);
 
 	for (auto it = root->entities.begin(); it != root->entities.end(); it++) {
 		it.value().render();

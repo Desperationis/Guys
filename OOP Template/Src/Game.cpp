@@ -31,12 +31,12 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 	quadtree = new Quadtree();
 	debugTools = new DebugTools();
 
-	for (unsigned int i = 0; i < 10; i++) {
+	for (unsigned int i = 0; i < 0; i++) {
 		int x = rand() % 801;
 		int y = rand() % 801;
 		quadtree->insert(x, y, quadtree->root, quadtree->HOOMAN);
 	}
-	for (unsigned int i = 0; i < 100; i++) {
+	for (unsigned int i = 0; i < 10000; i++) {
 		int x = rand() % 801;
 		int y = rand() % 801;
 		quadtree->insert(x, y, quadtree->root, quadtree->FOOD);

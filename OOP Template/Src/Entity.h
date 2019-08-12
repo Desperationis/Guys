@@ -18,6 +18,7 @@ struct Entity {
 	Uint32 id = 0;
 	Rect rect, eyes;
 	Quad* parent = nullptr;
+	Entity* closest = nullptr;
 	SDL_Color color;
 	std::vector<Quad*> searches;
 
