@@ -19,20 +19,15 @@ Quadtree::Quadtree() {
 }
 
 void Quadtree::clearQueue() {
-	for (unsigned int i = 0; i < queue.size(); i++) {
-		tmp.push_back(*queue[i]);
-		erase(queue[i]);
-	}
 	for (unsigned int i = 0; i < tmp.size(); i++) {
 		if (!tmp[i].plant) {
 			if (root->rect.CollidePoint(tmp[i].rect.dest.x, tmp[i].rect.dest.y)) {
 				insert(tmp[i]);
 			}
 		}
-		tmp[i].clean();
+		erase(tmp[i]);
 	}
 
-	queue.clear();
 	tmp.clear();
 }
 
@@ -90,7 +85,7 @@ void Quadtree::update(Quad* root) {
 
 	for (auto it = root->entities.begin(); it != root->entities.end(); it++) {
 		if (it.value().update()) {
-			queue.push_back(&it.value());
+			tmp.push_back(it.value());
 		}
 	}
 
@@ -198,11 +193,10 @@ Quad* Quadtree::search(int& x, int& y, Quad* root) {
 	return root;
 }
 
-void Quadtree::erase(Entity* entity) {
-	Quad* quad = entity->parent;
-	entity->clean();
-	quad->entities.erase(entity->id);
-	entity = nullptr;
+void Quadtree::erase(Entity& entity) {
+	Quad* quad = entity.parent;
+	entity.clean();
+	quad->entities.erase(entity.id);
 	quad = nullptr;
 }
 

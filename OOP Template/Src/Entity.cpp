@@ -25,6 +25,23 @@ bool Entity::update() {
 
 	look();
 
+	if (rect.left < 0) {
+		rect.dest.x = 0;
+		rect.update();
+	}
+	if (rect.right > WINDOW::WIDTH) {
+		rect.dest.x = WINDOW::WIDTH - rect.dest.w;
+		rect.update();
+	}
+	if (rect.top < 0) {
+		rect.dest.y = 0;
+		rect.update();
+	}
+	if (rect.bottom > WINDOW::HEIGHT) {
+		rect.dest.y = WINDOW::HEIGHT - rect.dest.h;
+		rect.update();
+	}
+
 
 	dead = !parent->rect.CollideRect(rect);
 	return dead;
@@ -57,8 +74,8 @@ void Entity::look() {
 	searches.clear();
 	if (closest) {
 
-		rect.bufferx += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 4.0f;
-		rect.buffery += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 4.0f;
+		rect.bufferx += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 6.0f;
+		rect.buffery += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 6.0f;
 		rect.dest.x = rect.bufferx;
 		rect.dest.y = rect.buffery;
 		rect.update();
@@ -82,6 +99,8 @@ void Entity::render() {
 
 void Entity::clean() {
 	parent = nullptr;
+	closest = nullptr;
+	searches.clear();
 }
 
 void Entity::search(Quad* root) {
