@@ -27,7 +27,7 @@ struct Quadtree {
 	void erase(Entity* entity);
 	void render(Quad* root);
 	void update(Quad* root);
-	void insert(int& x, int& y, Quad* root, ENTITIES e, bool dead = false);
+	void insert(Entity& entity);
 	Quad* search(int& x, int& y, Quad* root);
 	Quad* root;
 };

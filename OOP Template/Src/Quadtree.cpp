@@ -26,7 +26,7 @@ void Quadtree::clearQueue() {
 	for (unsigned int i = 0; i < tmp.size(); i++) {
 		if (!tmp[i].plant) {
 			if (root->rect.CollidePoint(tmp[i].rect.dest.x, tmp[i].rect.dest.y)) {
-				insert(tmp[i].rect.dest.x, tmp[i].rect.dest.y, root, HOOMAN, tmp[i].dead);
+				insert(tmp[i]);
 			}
 		}
 		tmp[i].clean();
@@ -101,10 +101,10 @@ void Quadtree::update(Quad* root) {
 	clearQueue();
 }
 
-void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e, bool dead) {
+void Quadtree::insert(Entity& entity) {
 	Quad* quad = nullptr;
 	try {
-		quad = search(x, y, root);
+		quad = search(entity.rect.dest.x, entity.rect.dest.y, root);
 	}
 	catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
@@ -113,16 +113,15 @@ void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e, bool dead) {
 	}
 	SDL_Rect& dest = quad->rect.dest;
 
-	switch (e) {
-	case FOOD:
-		quad->entities[Entity::counter] = Entity(x, y);
-		quad->entities[Entity::counter].plant = true;
-		break;
-	case HOOMAN:
-		SDL_Color c{ 255,0,0,255 };
-		quad->entities[Entity::counter] = Entity(x, y, c);
-		break;
-	}
+	quad->entities[Entity::counter] = Entity(entity.rect.dest.x, entity.rect.dest.y);
+	quad->entities[Entity::counter].eyes = entity.eyes;
+	quad->entities[Entity::counter].rect = entity.rect;
+	quad->entities[Entity::counter].dead = entity.dead;
+	quad->entities[Entity::counter].plant = entity.plant;
+	quad->entities[Entity::counter].color = entity.color;
+
+
+
 	quad->entities[Entity::counter].parent = quad;
 	Entity::counter++;
 
@@ -149,10 +148,10 @@ void Quadtree::insert(int& x, int& y, Quad* root, ENTITIES e, bool dead) {
 				//change to collide rect for higher accuracy over performance
 				if (quad->children[i].rect.CollidePoint(it.value().rect.dest.x, it.value().rect.dest.y)) {
 					if (it.value().plant) {
-						insert(it.value().rect.dest.x, it.value().rect.dest.y, &quad->children[i], FOOD, it.value().dead);
+						insert(it.value());
 					}
 					else {
-						insert(it.value().rect.dest.x, it.value().rect.dest.y, &quad->children[i], HOOMAN, it.value().dead);
+						insert(it.value());
 					}
 					it.value().clean();
 					break;
