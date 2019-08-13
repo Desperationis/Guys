@@ -42,6 +42,17 @@ bool Entity::update() {
 		rect.update();
 	}
 
+	if (!dead) {
+		for (auto it = parent->entities.begin(); it != parent->entities.end(); it++) {
+			if (!it.value().plant && it.value().id != id) {
+				if (rect.CollideRect(it.value().rect)) {
+					it.value().plant = true;
+					it.value().dead = true;
+				}
+			}
+		}
+	}
+
 
 	dead = !parent->rect.CollideRect(rect);
 	return dead;
@@ -74,8 +85,8 @@ void Entity::look() {
 	searches.clear();
 	if (closest) {
 
-		rect.bufferx += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 6.0f;
-		rect.buffery += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 6.0f;
+		rect.bufferx += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 4.0f;
+		rect.buffery += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 4.0f;
 		rect.dest.x = rect.bufferx;
 		rect.dest.y = rect.buffery;
 		rect.update();

@@ -22,5 +22,6 @@ struct Entity {
 	SDL_Color color;
 	std::vector<Quad*> searches;
 
+	std::vector<Entity*> chasingMe;
 	bool plant = false;
 };
