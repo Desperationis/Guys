@@ -23,7 +23,7 @@ bool Entity::update() {
 
 	eyes.update();
 
-	look();
+	bool flag = look();
 
 	if (rect.left < 0) {
 		rect.dest.x = 0;
@@ -53,12 +53,17 @@ bool Entity::update() {
 		}
 	}
 
+	if (flag) {
+		plant = true;
+		return true;
+	}
+
 
 	dead = !parent->rect.CollideRect(rect);
 	return dead;
 }
 
-void Entity::look() {
+bool Entity::look() {
 	search(Game::quadtree->root);
 
 	int lowest = INT_MAX;
@@ -88,17 +93,27 @@ void Entity::look() {
 	searches.clear();
 	if (closest) {
 
-		rect.bufferx += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 4.0f;
-		rect.buffery += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 4.0f;
+		rect.bufferx += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * speed;
+		rect.buffery += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * speed;
 		rect.dest.x = rect.bufferx;
 		rect.dest.y = rect.buffery;
 		rect.update();
 		
 		if (closest->rect.CollideRect(rect)) {
+			energy += 100;
 			closest->dead = true;
 			closest = nullptr;
 		}
 	}
+
+	energy -= speed;
+
+	if (energy <= 0) {
+		return true;
+	}
+
+	return false;
+
 }
 
 void Entity::render() {

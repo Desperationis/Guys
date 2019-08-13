@@ -59,13 +59,6 @@ void Game::update() {
 		quadtree->insert(e);
 	}
 
-	if (frame % 300 == 0) {
-		int x = (rand() % (WINDOW::WIDTH - 2)) + 1;
-		int y = (rand() % (WINDOW::HEIGHT - 2)) + 1;
-		Entity e(x, y, SDL_Color{ 255, 0, 0, 255 });
-		quadtree->insert(e);
-	}
-
 	//refreshes frame rate counter
 	if (counter) {
 		if (fpsTimer->getTicks() > 10000) {

@@ -114,7 +114,7 @@ void Quadtree::insert(Entity& entity) {
 	quad->entities[Entity::counter].dead = entity.dead;
 	quad->entities[Entity::counter].plant = entity.plant;
 	quad->entities[Entity::counter].color = entity.color;
-
+	quad->entities[Entity::counter].id = Entity::counter;
 
 
 	quad->entities[Entity::counter].parent = quad;
