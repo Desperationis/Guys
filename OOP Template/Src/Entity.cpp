@@ -87,9 +87,6 @@ void Entity::look() {
 
 	searches.clear();
 	if (closest) {
-		if (closest->id == NULL) {
-
-		}
 
 		rect.bufferx += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 4.0f;
 		rect.buffery += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * 4.0f;
