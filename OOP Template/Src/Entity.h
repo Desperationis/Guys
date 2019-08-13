@@ -5,7 +5,9 @@
 
 struct Quad;
 struct Entity {
-	Entity() {};
+	Entity() { 
+		id = -1; 
+	};
 	Entity(int x, int y, SDL_Color _color = { 0,0,0,255 });
 	bool update();
 	void render();
@@ -15,7 +17,7 @@ struct Entity {
 
 	static Uint32 counter;
 	bool dead = false;
-	Uint32 id = 0;
+	Uint32 id = -1;
 	Rect rect, eyes;
 	Quad* parent = nullptr;
 	Entity* closest = nullptr;
