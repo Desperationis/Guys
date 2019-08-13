@@ -33,14 +33,14 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 	debugTools = new DebugTools();
 
 	for (unsigned int i = 0; i < HOOMAN::BEGIN; i++) {
-		int x = (rand() % (WINDOW::WIDTH - 1)) + 1;
-		int y = (rand() % (WINDOW::HEIGHT - 1)) + 1;
+		int x = (rand() % (WINDOW::WIDTH - 2)) + 1;
+		int y = (rand() % (WINDOW::HEIGHT - 2)) + 1;
 		Entity e(x, y, SDL_Color{ 255, 0, 0, 255 });
 		quadtree->insert(e);
 	}
 	for (unsigned int i = 0; i < FOOD::BEGIN; i++) {
-		int x = (rand() % (WINDOW::WIDTH - 1)) + 1;
-		int y = (rand() % (WINDOW::HEIGHT - 1)) + 1;
+		int x = (rand() % (WINDOW::WIDTH - 2)) + 1;
+		int y = (rand() % (WINDOW::HEIGHT - 2)) + 1;
 		Entity e(x, y);
 		e.plant = true;
 		quadtree->insert(e);
@@ -52,10 +52,17 @@ Uint32 frame = 0; // frame counter
 void Game::update() {
 	frame++;
 	if (frame % FOOD::GROWTH == 0) {
-		int x = (rand() % (WINDOW::WIDTH - 1)) + 1;
-		int y = (rand() % (WINDOW::HEIGHT - 1)) + 1;
+		int x = (rand() % (WINDOW::WIDTH - 2)) + 1;
+		int y = (rand() % (WINDOW::HEIGHT - 2)) + 1;
 		Entity e(x, y);
 		e.plant = true;
+		quadtree->insert(e);
+	}
+
+	if (frame % 300 == 0) {
+		int x = (rand() % (WINDOW::WIDTH - 2)) + 1;
+		int y = (rand() % (WINDOW::HEIGHT - 2)) + 1;
+		Entity e(x, y, SDL_Color{ 255, 0, 0, 255 });
 		quadtree->insert(e);
 	}
 
