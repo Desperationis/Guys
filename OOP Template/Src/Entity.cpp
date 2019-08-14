@@ -16,8 +16,8 @@ Entity::Entity(int x, int y) {
 bool Entity::update() {
 	if (plant) return dead;
 
-	eyes.dest.x = rect.dest.x - (HOOMAN::SIGHT / 2);
-	eyes.dest.y = rect.dest.y - (HOOMAN::SIGHT / 2);
+	eyes.dest.x = rect.center[0] - (HOOMAN::SIGHT / 2);
+	eyes.dest.y = rect.center[1] - (HOOMAN::SIGHT / 2);
 	eyes.dest.w = HOOMAN::SIGHT;
 	eyes.dest.h = HOOMAN::SIGHT;
 
@@ -74,7 +74,7 @@ bool Entity::look() {
 
 		for (int i = 0; i < searches.size(); i++) {
 			for (auto it = searches[i]->entities.begin(); it != searches[i]->entities.end(); it++) {
-				int distance = abs(it.value().rect.dest.x - rect.dest.x) + abs(it.value().rect.dest.y - rect.dest.y);
+				int distance = abs(it.value().rect.center[0] - rect.center[0]) + abs(it.value().rect.center[1] - rect.center[1]);
 				if (it.value().plant && !it.value().dead) {
 					if (it.value().rect.CollideRect(eyes) && distance < lowest) {
 						lowest = distance;
@@ -93,8 +93,8 @@ bool Entity::look() {
 	searches.clear();
 	if (closest) {
 
-		rect.bufferx += cos(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * speed;
-		rect.buffery += sin(atan2(closest->rect.dest.y - rect.dest.y, closest->rect.dest.x - rect.dest.x)) * speed;
+		rect.bufferx += cos(atan2(closest->rect.center[1] - rect.center[1], closest->rect.center[0] - rect.center[0])) * speed;
+		rect.buffery += sin(atan2(closest->rect.center[1] - rect.center[1], closest->rect.center[0] - rect.center[0])) * speed;
 		rect.dest.x = rect.bufferx;
 		rect.dest.y = rect.buffery;
 		rect.update();

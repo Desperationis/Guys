@@ -21,7 +21,7 @@ Quadtree::Quadtree() {
 void Quadtree::clearQueue() {
 	for (unsigned int i = 0; i < tmp.size(); i++) {
 		if (!tmp[i].plant) {
-			if (root->rect.CollidePoint(tmp[i].rect.dest.x, tmp[i].rect.dest.y)) {
+			if (root->rect.CollidePoint(tmp[i].rect.center[0], tmp[i].rect.center[1])) {
 				insert(tmp[i]);
 			}
 		}
@@ -32,7 +32,7 @@ void Quadtree::clearQueue() {
 }
 
 void Quadtree::render(Quad* root) {
-	//root->rect.renderOutline(255, 0, 0);
+	root->rect.renderOutline(255, 0, 0);
 
 	for (auto it = root->entities.begin(); it != root->entities.end(); it++) {
 		it.value().render();
@@ -99,7 +99,7 @@ void Quadtree::update(Quad* root) {
 void Quadtree::insert(Entity& entity) {
 	Quad* quad = nullptr;
 	try {
-		quad = search(entity.rect.dest.x, entity.rect.dest.y, root);
+		quad = search(entity.rect.center[0], entity.rect.center[1], root);
 	}
 	catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
@@ -143,7 +143,7 @@ void Quadtree::insert(Entity& entity) {
 		for (auto it = quad->entities.begin(); it != quad->entities.end(); it++) {
 			for (unsigned int i = 0; i < quad->children.size(); i++) {
 				//change to collide rect for higher accuracy over performance
-				if (quad->children[i].rect.CollidePoint(it.value().rect.dest.x, it.value().rect.dest.y)) {
+				if (quad->children[i].rect.CollidePoint(it.value().rect.center[0], it.value().rect.center[1])) {
 					if (it.value().plant) {
 						insert(it.value());
 					}
