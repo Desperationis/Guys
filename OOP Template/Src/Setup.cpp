@@ -8,8 +8,8 @@ const int QUADTREE::MAX_ITERATION = 4;
 bool QUADTREE::RENDER = false;
 
 const int FOOD::SIZE = 5;
-const int FOOD::BEGIN = 100;
-const int FOOD::GROWTH = 10;
+const int FOOD::BEGIN = 10000;
+const int FOOD::GROWTH = 1;
 const int FOOD::MULTIPLIER = 3;
 const int FOOD::ENERGY = 100;
 
