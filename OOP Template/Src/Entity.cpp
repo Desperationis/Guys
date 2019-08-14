@@ -18,30 +18,27 @@ Entity::Entity(int x, int y) {
 bool Entity::update() {
 	if (plant) return dead;
 
-	eyes.dest.x = rect.center[0] - (sight / 2);
-	eyes.dest.y = rect.center[1] - (sight / 2);
-	eyes.dest.w = sight;
-	eyes.dest.h = sight;
-
-	eyes.update();
-
 	bool decompose = look();
 
 	if (rect.left < 0) {
 		rect.dest.x = 0;
 		rect.update();
+		angle += 90;
 	}
 	if (rect.right > WINDOW::WIDTH) {
 		rect.dest.x = WINDOW::WIDTH - rect.dest.w;
 		rect.update();
+		angle += 90;
 	}
 	if (rect.top < 0) {
 		rect.dest.y = 0;
 		rect.update();
+		angle += 90;
 	}
 	if (rect.bottom > WINDOW::HEIGHT) {
 		rect.dest.y = WINDOW::HEIGHT - rect.dest.h;
 		rect.update();
+		angle += 90;
 	}
 
 	if (!dead) {
@@ -56,6 +53,13 @@ bool Entity::update() {
 
 		makeBabbe();
 	}
+
+	eyes.dest.x = rect.center[0] - (sight / 2);
+	eyes.dest.y = rect.center[1] - (sight / 2);
+	eyes.dest.w = sight;
+	eyes.dest.h = sight;
+
+	eyes.update();
 
 	if (decompose) {
 		plant = true;
@@ -123,7 +127,7 @@ bool Entity::look() {
 		rect.update();
 	}
 
-	energy -= speed * speed * 0.5;
+	energy -= speed * 0.5;
 
 	if (energy <= 0) {
 		return true;
@@ -134,22 +138,21 @@ bool Entity::look() {
 }
 
 void Entity::makeBabbe() {
-	if (energy - 500 >= 1500) {
-		double angle = (rand() % 36000) / 100.0f;
-		Entity e((cos(angle * (M_PI / 180)) * sight) + rect.dest.x, (sin(angle * (M_PI / 180)) * sight) + rect.dest.y);
+	if (energy - 1000 >= 500) {
+		int angle_ = (rand() % 360);
+		Entity e((cos(angle_ * (M_PI / 180.0f)) * sight) + rect.dest.x, (sin(angle_ * (M_PI / 180.0f)) * sight) + rect.dest.y);
 		
 		e.dead = dead;
 		e.plant = plant;
 		e.color = color;
 		e.speed = speed;
-		e.energy = energy;
+		e.energy = 300;
 		e.sight = sight;
 		e.angle = angle;
 		e.roam = roam;
 		id = Entity::counter++;
 
-		energy -= 500;
-		e.energy = 500;
+		energy -= 1000;
 		Game::quadtree->queue.push_back(e);
 	}
 }
