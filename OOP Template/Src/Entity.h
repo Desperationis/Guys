@@ -10,18 +10,22 @@ struct Entity {
 	bool update();
 	void render();
 	void clean();
+	void copy(Entity& entity);
 
-	static Uint32 counter;
-	bool dead = false;
-	Uint32 id = -1;
+	static Uint64 counter;
+	Uint64 id = -1;
 	Rect rect, eyes;
 	Quad* parent = nullptr;
 	SDL_Color color;
 	bool plant = false;
 
 
+	bool dead = false;
+	bool roam = false;
 	float energy = 300.0f;
 	float speed = 2.0f;
+	float sight = 0.0f;
+	float angle = 0.0f;
 private:
 	std::vector<Quad*> searches;
 	Entity* closest = nullptr;
@@ -29,5 +33,6 @@ private:
 
 	bool look();
 	void search(Quad* root);
+	void makeBabbe();
 
 };

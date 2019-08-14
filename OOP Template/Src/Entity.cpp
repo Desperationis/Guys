@@ -5,21 +5,23 @@
 #include "limits.h"
 #include "includes.h"
 
-Uint32 Entity::counter = 0;
+Uint64 Entity::counter = 0;
 
 Entity::Entity(int x, int y) {
 	id = Entity::counter;
 	rect = Rect(x, y, FOOD::SIZE, FOOD::SIZE);
 	color = SDL_Color{ static_cast<Uint8>(rand() % 256), static_cast<Uint8>(rand() % 256), static_cast<Uint8>(rand() % 256), 255};
+	speed = ((rand() % 100) / 10.0f) + 1.0f;
+	sight = HOOMAN::SIGHT / speed;
 }
 
 bool Entity::update() {
 	if (plant) return dead;
 
-	eyes.dest.x = rect.center[0] - (HOOMAN::SIGHT / 2);
-	eyes.dest.y = rect.center[1] - (HOOMAN::SIGHT / 2);
-	eyes.dest.w = HOOMAN::SIGHT;
-	eyes.dest.h = HOOMAN::SIGHT;
+	eyes.dest.x = rect.center[0] - (sight / 2);
+	eyes.dest.y = rect.center[1] - (sight / 2);
+	eyes.dest.w = sight;
+	eyes.dest.h = sight;
 
 	eyes.update();
 
@@ -51,13 +53,14 @@ bool Entity::update() {
 				}
 			}
 		}
+
+		makeBabbe();
 	}
 
 	if (decompose) {
 		plant = true;
 		return true;
 	}
-
 
 	dead = !parent->rect.CollideRect(rect);
 	return dead;
@@ -79,6 +82,7 @@ bool Entity::look() {
 					if (it.value().rect.CollideRect(eyes) && distance < lowest) {
 						lowest = distance;
 						closest = &it.value();
+						roam = false;
 					}
 				}
 			}
@@ -106,7 +110,20 @@ bool Entity::look() {
 		}
 	}
 
-	energy -= speed;
+	if (!closest) {
+		if (!roam) {
+			angle = (rand() % 36000) / 100.0f;
+			roam = true;
+		}
+
+		rect.bufferx += cos(angle * (M_PI / 180)) * speed;
+		rect.buffery += sin(angle * (M_PI / 180)) * speed;
+		rect.dest.x = rect.bufferx;
+		rect.dest.y = rect.buffery;
+		rect.update();
+	}
+
+	energy -= speed * speed * 0.5;
 
 	if (energy <= 0) {
 		return true;
@@ -114,6 +131,41 @@ bool Entity::look() {
 
 	return false;
 
+}
+
+void Entity::makeBabbe() {
+	if (energy - 500 >= 1500) {
+		double angle = (rand() % 36000) / 100.0f;
+		Entity e((cos(angle * (M_PI / 180)) * sight) + rect.dest.x, (sin(angle * (M_PI / 180)) * sight) + rect.dest.y);
+		
+		e.dead = dead;
+		e.plant = plant;
+		e.color = color;
+		e.speed = speed;
+		e.energy = energy;
+		e.sight = sight;
+		e.angle = angle;
+		e.roam = roam;
+		id = Entity::counter++;
+
+		energy -= 500;
+		e.energy = 500;
+		Game::quadtree->queue.push_back(e);
+	}
+}
+
+void Entity::copy(Entity& entity) {
+	eyes = entity.eyes;
+	rect = entity.rect;
+	dead = entity.dead;
+	plant = entity.plant;
+	color = entity.color;
+	speed = entity.speed;
+	energy = entity.energy;
+	sight = entity.sight;
+	angle = entity.angle;
+	roam = entity.roam;
+	id = Entity::counter;
 }
 
 void Entity::render() {

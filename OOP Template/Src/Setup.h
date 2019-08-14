@@ -10,14 +10,16 @@ struct FOOD {
 	static const int SIZE;
 	static const int BEGIN;
 	static const int GROWTH; // How many frames before food grows
+	static const int MULTIPLIER; // How many pieces of fruit grow
 	static const int ENERGY; // How much energy a plant gives
 };
 
 struct HOOMAN {
-	static const int SIGHT; // How far hooman can see
+	static const int SIGHT; // How far hooman can see on speed 1
 	static const int BEGIN; // Initial numbers
 };
 
 struct QUADTREE {
 	static const int MAX_ITERATION; // How far the tree can divide
+	static bool RENDER;
 };

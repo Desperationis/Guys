@@ -52,11 +52,13 @@ Uint32 frame = 0; // frame counter
 void Game::update() {
 	frame++;
 	if (frame % FOOD::GROWTH == 0) {
-		int x = (rand() % (WINDOW::WIDTH - 2)) + 1;
-		int y = (rand() % (WINDOW::HEIGHT - 2)) + 1;
-		Entity e(x, y);
-		e.plant = true;
-		quadtree->insert(e);
+		for (int i = 0; i < FOOD::MULTIPLIER; i++) {
+			int x = (rand() % (WINDOW::WIDTH - 2)) + 1;
+			int y = (rand() % (WINDOW::HEIGHT - 2)) + 1;
+			Entity e(x, y);
+			e.plant = true;
+			quadtree->insert(e);
+		}
 	}
 
 	//refreshes frame rate counter

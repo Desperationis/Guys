@@ -29,10 +29,17 @@ void Quadtree::clearQueue() {
 	}
 
 	tmp.clear();
+
+	for (int i = 0; i < queue.size(); i++) {
+		insert(queue[i]);
+	}
+	queue.clear();
 }
 
 void Quadtree::render(Quad* root) {
-	root->rect.renderOutline(255, 0, 0);
+	if (QUADTREE::RENDER) {
+		root->rect.renderOutline(255, 0, 0);
+	}
 
 	for (auto it = root->entities.begin(); it != root->entities.end(); it++) {
 		it.value().render();
@@ -103,20 +110,13 @@ void Quadtree::insert(Entity& entity) {
 	}
 	catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
-		system("pause");
+		//system("pause");
 		return;
 	}
 	SDL_Rect& dest = quad->rect.dest;
 
 	quad->entities[Entity::counter] = Entity(entity.rect.dest.x, entity.rect.dest.y);
-	quad->entities[Entity::counter].eyes = entity.eyes;
-	quad->entities[Entity::counter].rect = entity.rect;
-	quad->entities[Entity::counter].dead = entity.dead;
-	quad->entities[Entity::counter].plant = entity.plant;
-	quad->entities[Entity::counter].color = entity.color;
-	quad->entities[Entity::counter].id = Entity::counter;
-	quad->entities[Entity::counter].speed = entity.speed;
-	quad->entities[Entity::counter].energy = entity.energy;
+	quad->entities[Entity::counter].copy(entity);
 
 
 	quad->entities[Entity::counter].parent = quad;
