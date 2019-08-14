@@ -10,6 +10,7 @@ struct FOOD {
 	static const int SIZE;
 	static const int BEGIN;
 	static const int GROWTH; // How many frames before food grows
+	static const int ENERGY; // How much energy a plant gives
 };
 
 struct HOOMAN {

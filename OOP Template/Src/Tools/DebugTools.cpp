@@ -14,7 +14,7 @@ void DebugTools::update() {
 		Game::quadtree->insert(e);
 	}
 	if (InputSystem::mouse[InputSystem::MOUSE::RIGHT] && !Rclicked) {
-		Entity e(x, y, SDL_Color{ 255, 0, 0, 255 });
+		Entity e(x, y);
 		Game::quadtree->insert(e);
 	}
 	Lclicked = InputSystem::mouse[InputSystem::MOUSE::LEFT];

@@ -35,7 +35,7 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 	for (unsigned int i = 0; i < HOOMAN::BEGIN; i++) {
 		int x = (rand() % (WINDOW::WIDTH - 2)) + 1;
 		int y = (rand() % (WINDOW::HEIGHT - 2)) + 1;
-		Entity e(x, y, SDL_Color{ 255, 0, 0, 255 });
+		Entity e(x, y);
 		quadtree->insert(e);
 	}
 	for (unsigned int i = 0; i < FOOD::BEGIN; i++) {

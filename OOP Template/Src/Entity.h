@@ -6,7 +6,7 @@
 struct Quad;
 struct Entity {
 	Entity() {};
-	Entity(int x, int y, SDL_Color _color = { 0,0,0,255 });
+	Entity(int x, int y);
 	bool update();
 	void render();
 	void clean();
@@ -18,12 +18,14 @@ struct Entity {
 	Quad* parent = nullptr;
 	SDL_Color color;
 	bool plant = false;
+
+
+	float energy = 300.0f;
+	float speed = 2.0f;
 private:
 	std::vector<Quad*> searches;
 	Entity* closest = nullptr;
 
-	float energy = 300.0f;
-	float speed = 2.0f;
 
 	bool look();
 	void search(Quad* root);

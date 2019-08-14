@@ -7,10 +7,10 @@
 
 Uint32 Entity::counter = 0;
 
-Entity::Entity(int x, int y, SDL_Color _color) {
+Entity::Entity(int x, int y) {
 	id = Entity::counter;
 	rect = Rect(x, y, FOOD::SIZE, FOOD::SIZE);
-	color = _color;
+	color = SDL_Color{ static_cast<Uint8>(rand() % 256), static_cast<Uint8>(rand() % 256), static_cast<Uint8>(rand() % 256), 255};
 }
 
 bool Entity::update() {
@@ -23,7 +23,7 @@ bool Entity::update() {
 
 	eyes.update();
 
-	bool flag = look();
+	bool decompose = look();
 
 	if (rect.left < 0) {
 		rect.dest.x = 0;
@@ -45,7 +45,7 @@ bool Entity::update() {
 	if (!dead) {
 		for (auto it = parent->entities.begin(); it != parent->entities.end(); it++) {
 			if (!it.value().plant && it.value().id != id) {
-				if (rect.CollideRect(it.value().rect)) {
+				if (rect.CollideRect(it.value().rect) && energy > it.value().energy) {
 					it.value().plant = true;
 					it.value().dead = true;
 				}
@@ -53,7 +53,7 @@ bool Entity::update() {
 		}
 	}
 
-	if (flag) {
+	if (decompose) {
 		plant = true;
 		return true;
 	}
@@ -100,7 +100,7 @@ bool Entity::look() {
 		rect.update();
 		
 		if (closest->rect.CollideRect(rect)) {
-			energy += 100;
+			energy += FOOD::ENERGY;
 			closest->dead = true;
 			closest = nullptr;
 		}
