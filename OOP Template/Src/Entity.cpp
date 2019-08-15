@@ -16,7 +16,7 @@ Entity::Entity(int x, int y) {
 }
 
 bool Entity::update() {
-	if (plant) return dead;
+	if (plant) { return dead; }
 
 	bool decompose = look();
 
@@ -41,11 +41,17 @@ bool Entity::update() {
 		angle += 90;
 	}
 
+	bool f = false;
 	if (!dead) {
 		for (auto it = parent->entities.begin(); it != parent->entities.end(); it++) {
 			if (!it.value().plant && it.value().id != id) {
-				if (rect.CollideRect(it.value().rect) && energy > it.value().energy) {
-					it.value().dead = true;
+				if (rect.CollideRect(it.value().rect)) {
+					if (energy <= it.value().energy) {
+						dead = true;
+					}
+					if (energy > it.value().energy) {
+						it.value().dead = true;
+					}
 				}
 			}
 		}
@@ -65,6 +71,7 @@ bool Entity::update() {
 	}
 
 	relocate = !parent->rect.CollideRect(rect);
+
 	return dead || relocate;
 }
 
@@ -125,7 +132,7 @@ bool Entity::look() {
 		rect.update();
 	}
 
-	energy -= speed * 0.5;
+	energy -= speed * speed * 0.5;
 
 	if (energy <= 0) {
 		return true;
@@ -175,7 +182,7 @@ void Entity::render() {
 	}
 	else {
 		rect.renderFill(color);
-		eyes.renderOutline(0, 155, 155);
+		//eyes.renderOutline(0, 155, 155);
 	}
 }
 
