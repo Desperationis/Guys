@@ -23,3 +23,7 @@ struct QUADTREE {
 	static const int MAX_ITERATION; // How far the tree can divide
 	static bool RENDER;
 };
+
+struct DEBUG {
+	static const bool OUT_OF_BOUNDS; // will this display out of bounds info?
+};

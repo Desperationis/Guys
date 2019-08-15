@@ -111,8 +111,9 @@ void Quadtree::insert(Entity& entity) {
 		quad = search(entity.rect.center[0], entity.rect.center[1], root);
 	}
 	catch (std::exception& e) {
-		std::cout << e.what() << std::endl;
-		//system("pause");
+		if (DEBUG::OUT_OF_BOUNDS) {
+			std::cout << e.what() << std::endl;
+		}
 		return;
 	}
 	SDL_Rect& dest = quad->rect.dest;
