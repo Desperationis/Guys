@@ -17,10 +17,10 @@ Rect::Rect(const int x, const int y, const int w, const int h) {
 
 
 bool Rect::CollideRect(const Rect& target) const {
-	return (left < target.right &&
-			right > target.left &&
-			bottom > target.top &&
-			top < target.bottom);
+	return (left <= target.right &&
+			right >= target.left &&
+			bottom >= target.top &&
+			top <= target.bottom);
 }
 
 bool Rect::CollideRect(const FRect& target) const {

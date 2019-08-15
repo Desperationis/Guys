@@ -5,7 +5,7 @@ const int WINDOW::HEIGHT = 1000;
 const int WINDOW::FPS = 60;
 
 const int QUADTREE::MAX_ITERATION = 4;
-bool QUADTREE::RENDER = false;
+bool QUADTREE::RENDER = true;
 
 const int FOOD::SIZE = 15;
 const int FOOD::BEGIN = 0;

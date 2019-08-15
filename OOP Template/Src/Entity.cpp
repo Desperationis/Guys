@@ -155,7 +155,7 @@ void Entity::makeBabbe() {
 		e.sight = sight;
 		e.angle = angle;
 		e.roam = roam;
-		id = Entity::counter++;
+		e.id = Entity::counter;
 
 		energy -= 1000;
 		Game::quadtree->queue.push_back(e);
