@@ -20,12 +20,14 @@ Quadtree::Quadtree() {
 
 void Quadtree::clearQueue() {
 	for (unsigned int i = 0; i < tmp.size(); i++) {
-		if (!tmp[i].plant) {
+		if (tmp[i].relocate) {
 			if (root->rect.CollidePoint(tmp[i].rect.center[0], tmp[i].rect.center[1])) {
 				insert(tmp[i]);
 			}
 		}
-		erase(tmp[i]);
+		if (tmp[i].relocate || tmp[i].dead) {
+			erase(tmp[i]);
+		}
 	}
 
 	tmp.clear();

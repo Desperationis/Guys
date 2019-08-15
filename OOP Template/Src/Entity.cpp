@@ -45,7 +45,6 @@ bool Entity::update() {
 		for (auto it = parent->entities.begin(); it != parent->entities.end(); it++) {
 			if (!it.value().plant && it.value().id != id) {
 				if (rect.CollideRect(it.value().rect) && energy > it.value().energy) {
-					it.value().plant = true;
 					it.value().dead = true;
 				}
 			}
@@ -62,12 +61,11 @@ bool Entity::update() {
 	eyes.update();
 
 	if (decompose) {
-		plant = true;
-		return true;
+		dead = true;
 	}
 
-	dead = !parent->rect.CollideRect(rect);
-	return dead;
+	relocate = !parent->rect.CollideRect(rect);
+	return dead || relocate;
 }
 
 bool Entity::look() {

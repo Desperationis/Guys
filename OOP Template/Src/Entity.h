@@ -21,6 +21,7 @@ struct Entity {
 
 
 	bool dead = false;
+	bool relocate = false;
 	bool roam = false;
 	float energy = 300.0f;
 	float speed = 2.0f;
