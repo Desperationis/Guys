@@ -3,6 +3,7 @@
 const int WINDOW::WIDTH = 1920;
 const int WINDOW::HEIGHT = 1000;
 const int WINDOW::FPS = 60;
+bool WINDOW::FPS_COUNTER = false;
 
 const int QUADTREE::MAX_ITERATION = 5;
 bool QUADTREE::RENDER = false;

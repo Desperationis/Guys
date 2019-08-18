@@ -7,6 +7,7 @@ Button::Button(const char* text, int x, int y, int w, int h, bool& value) {
 	if (font == nullptr) {
 		SDL_Color tmp = SDL_Color{ 0,0,0, 255 };
 		font = new Font("Fonts\\8bitoperator_jve.ttf", 32, tmp);
+		font->loadRenderType(Font::BLENDED);
 	}
 	this->text = font->toText(text);
 	rect.setup(x, y, w, h);

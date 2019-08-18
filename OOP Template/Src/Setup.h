@@ -4,6 +4,7 @@ struct WINDOW {
 	static const int WIDTH;
 	static const int HEIGHT;
 	static const int FPS;
+	static bool FPS_COUNTER;
 };
 
 struct FOOD {

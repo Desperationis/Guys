@@ -35,6 +35,7 @@ Overlay::Overlay() {
 	buttons.push_back(Button("Graphics", width * 4, 0, width, 90, dummy));
 
 	buttons.back().addButton("VSync", dummy);
+	buttons.back().addButton("FPS Counter", WINDOW::FPS_COUNTER);
 	buttons.back().addButton("Width", dummy);
 	buttons.back().addButton("Height", dummy);
 }

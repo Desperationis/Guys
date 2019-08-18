@@ -96,7 +96,6 @@ void Game::render() {
 	countedFrames++;
 }
 
-bool TAB_PRESSED = false;
 void Game::events() {
 	SDL_PollEvent(&event);
 	InputSystem::PumpEvents();
@@ -110,10 +109,10 @@ void Game::events() {
 		running = false;
 	}
 
-	if (InputSystem::keys[SDL_SCANCODE_TAB] && !TAB_PRESSED) {
+	if (WINDOW::FPS_COUNTER) {
 		counter = !counter;
+		WINDOW::FPS_COUNTER = false;
 	}
-	TAB_PRESSED = InputSystem::keys[SDL_SCANCODE_TAB];
 }
 
 bool Game::isRunning() const {
