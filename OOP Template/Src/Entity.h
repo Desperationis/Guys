@@ -23,7 +23,8 @@ struct Entity {
 	bool dead = false;
 	bool relocate = false;
 	bool roam = false;
-	float energy = 300.0f;
+
+	float energy = 1000.0f;
 	float speed = 2.0f;
 	float sight = 0.0f;
 	float angle = 0.0f;
@@ -32,8 +33,9 @@ private:
 	Entity* closest = nullptr;
 
 
-	bool look();
 	void search(Quad* root);
+
 	void makeBabbe();
+	bool look(); // looks for food
 
 };

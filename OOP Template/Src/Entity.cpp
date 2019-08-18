@@ -45,9 +45,9 @@ bool Entity::update() {
 	if (!dead) {
 		for (auto it = parent->entities.begin(); it != parent->entities.end(); it++) {
 			if (!it.value().plant && it.value().id != id) {
-				if (rect.CollideRect(it.value().rect)) {
+				if (rect.CollideRect(it.value().rect) ) {
 					if (energy >= it.value().energy && !it.value().dead) {
-						dead = true;
+						it.value().dead = true;
 					}
 				}
 			}
@@ -132,6 +132,7 @@ bool Entity::look() {
 	energy -= speed * speed * 0.5;
 
 	if (energy <= 0) {
+		dead = true;
 		return true;
 	}
 
@@ -144,11 +145,11 @@ void Entity::makeBabbe() {
 		int angle_ = (rand() % 360);
 		Entity e((cos(angle_ * (M_PI / 180.0f)) * sight) + rect.dest.x, (sin(angle_ * (M_PI / 180.0f)) * sight) + rect.dest.y);
 		
+		e.energy = 300;
 		e.dead = dead;
 		e.plant = plant;
 		e.color = color;
 		e.speed = speed;
-		e.energy = 300;
 		e.sight = sight;
 		e.angle = angle;
 		e.roam = roam;

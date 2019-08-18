@@ -163,8 +163,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Button.cpp" />
     <ClCompile Include="Src\Entity.cpp" />
     <ClCompile Include="Src\Game.cpp" />
+    <ClCompile Include="Src\Overlay.cpp" />
     <ClCompile Include="Src\Quadtree.cpp" />
     <ClCompile Include="Src\Setup.cpp" />
     <ClCompile Include="Src\Tools\DebugTools.cpp" />
@@ -177,9 +179,11 @@
     <ClCompile Include="Src\Tools\TM.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Button.h" />
     <ClInclude Include="Src\Entity.h" />
     <ClInclude Include="Src\Game.h" />
     <ClInclude Include="Src\includes.h" />
+    <ClInclude Include="Src\Overlay.h" />
     <ClInclude Include="Src\Quadtree.h" />
     <ClInclude Include="Src\Setup.h" />
     <ClInclude Include="Src\Tools\DebugTools.h" />

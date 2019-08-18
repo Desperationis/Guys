@@ -7,8 +7,10 @@
 #include "Quadtree.h"
 #include "Tools/DebugTools.h"
 #include "Setup.h"
+#include "Overlay.h"
 
 Quadtree* Game::quadtree;
+Overlay* overlay;
 
 Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 flags) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -31,6 +33,7 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 
 	quadtree = new Quadtree();
 	debugTools = new DebugTools();
+	overlay = new Overlay();
 
 	for (unsigned int i = 0; i < HOOMAN::BEGIN; i++) {
 		int x = (rand() % (WINDOW::WIDTH - 4)) + 2;
@@ -79,6 +82,7 @@ void Game::update() {
 	debugTools->update();
 	// Debug Tools
 
+	overlay->update();
 	quadtree->update(quadtree->root);
 }
 
@@ -86,6 +90,7 @@ void Game::render() {
 	TM::renderClear();
 
 	quadtree->render(quadtree->root);
+	overlay->render();
 
 	TM::renderDrawColor(255, 255, 255);
 	TM::renderPresent();
