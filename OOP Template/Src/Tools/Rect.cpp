@@ -11,8 +11,8 @@ Rect::Rect() {
 
 Rect::Rect(const int x, const int y, const int w, const int h) {
 	setup(x, y, w, h);
-	bufferx = x;
-	buffery = y;
+	bufferx = static_cast<float>(x);
+	buffery = static_cast<float>(y);
 }
 
 

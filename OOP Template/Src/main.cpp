@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
 		game.render();
 
 		countedFrames++;
-		if (regulator.getTicks() < 1000 / WINDOW::FPS) {
+		if (regulator.getTicks() < static_cast<Uint32>(1000 / WINDOW::FPS)) {
 			SDL_Delay((1000 / FRAMERATE) - regulator.getTicks());
 			// 1000ms / 60 = 16ms delay for 60 fps
 		}

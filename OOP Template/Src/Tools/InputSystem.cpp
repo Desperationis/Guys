@@ -7,7 +7,7 @@ const Uint8* InputSystem::keys;
 int InputSystem::mouse[4];
 
 InputSystem::InputSystem() {
-	for (unsigned int i = 0; i < SDL_NumJoysticks(); i++)
+	for (int i = 0; i < SDL_NumJoysticks(); i++)
 	{
 		if (SDL_IsGameController(i))
 		{

@@ -23,7 +23,7 @@ void Button::update() {
 	}
 	pressed = rect.CollidePoint(InputSystem::mouse[InputSystem::X], InputSystem::mouse[InputSystem::Y]) && InputSystem::mouse[InputSystem::LEFT];
 
-	for (int i = 0; i < dropDown.size(); i++) {
+	for (unsigned int i = 0; i < dropDown.size(); i++) {
 		if (preview) {
 			dropDown[i]->update();
 		}
@@ -42,7 +42,7 @@ void Button::render() {
 	if (dropDown.size() != 0) {
 		if (preview) {
 			preview = false;
-			for (int i = 0; i < dropDown.size(); i++) {
+			for (unsigned int i = 0; i < dropDown.size(); i++) {
 				preview = dropDown[i]->rect.CollidePoint(InputSystem::mouse[InputSystem::X], InputSystem::mouse[InputSystem::Y]) || preview;
 			}
 		}
@@ -51,7 +51,7 @@ void Button::render() {
 		}
 
 		if (preview) {
-			for (int i = 0; i < dropDown.size(); i++) {
+			for (unsigned int i = 0; i < dropDown.size(); i++) {
 				dropDown[i]->render();
 			}
 		}

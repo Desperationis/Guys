@@ -11,7 +11,7 @@ struct Quad {
 	Quad* parent;
 	Rect rect;
 	std::vector<Quad> children;
-	tsl::hopscotch_map<Uint32, Entity> entities;
+	tsl::hopscotch_map<Uint64, Entity> entities;
 };
 
 struct Quadtree {

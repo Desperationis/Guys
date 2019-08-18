@@ -35,13 +35,13 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 	debugTools = new DebugTools();
 	overlay = new Overlay();
 
-	for (unsigned int i = 0; i < HOOMAN::BEGIN; i++) {
+	for (int i = 0; i < HOOMAN::BEGIN; i++) {
 		int x = (rand() % (WINDOW::WIDTH - 4)) + 2;
 		int y = (rand() % (WINDOW::HEIGHT - 4)) + 2;
 		Entity e(x, y);
 		quadtree->insert(e);
 	}
-	for (unsigned int i = 0; i < FOOD::BEGIN; i++) {
+	for (int i = 0; i < FOOD::BEGIN; i++) {
 		int x = (rand() % (WINDOW::WIDTH - 4)) + 2;
 		int y = (rand() % (WINDOW::HEIGHT - 4)) + 2;
 		Entity e(x, y);
@@ -78,9 +78,9 @@ void Game::update() {
 		std::cout << avgFPS << std::endl;
 	}
 
-	// Debug Tool
-	debugTools->update();
-	// Debug Tools
+	if (!overlay->visible) {
+		debugTools->update();
+	}
 
 	overlay->update();
 	quadtree->update(quadtree->root);

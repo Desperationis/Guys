@@ -56,10 +56,10 @@ bool Entity::update() {
 		makeBabbe();
 	}
 
-	eyes.dest.x = rect.center[0] - (sight / 2);
-	eyes.dest.y = rect.center[1] - (sight / 2);
-	eyes.dest.w = sight;
-	eyes.dest.h = sight;
+	eyes.dest.x = static_cast<int>(rect.center[0] - (sight / 2));
+	eyes.dest.y = static_cast<int>(rect.center[1] - (sight / 2));
+	eyes.dest.w = static_cast<int>(sight);
+	eyes.dest.h = static_cast<int>(sight);
 
 	eyes.update();
 
@@ -81,7 +81,7 @@ bool Entity::look() {
 
 	if (!closest) {
 
-		for (int i = 0; i < searches.size(); i++) {
+		for (unsigned int i = 0; i < searches.size(); i++) {
 			for (auto it = searches[i]->entities.begin(); it != searches[i]->entities.end(); it++) {
 				int distance = abs(it.value().rect.center[0] - rect.center[0]) + abs(it.value().rect.center[1] - rect.center[1]);
 				if (it.value().plant && !it.value().dead) {
@@ -94,7 +94,7 @@ bool Entity::look() {
 			}
 		}
 
-		for (int i = 0; i < searches.size(); i++) {
+		for (unsigned int i = 0; i < searches.size(); i++) {
 			searches[i] = nullptr;
 		}
 	}
@@ -103,10 +103,10 @@ bool Entity::look() {
 	searches.clear();
 	if (closest) {
 
-		rect.bufferx += cos(atan2(closest->rect.center[1] - rect.center[1], closest->rect.center[0] - rect.center[0])) * speed;
-		rect.buffery += sin(atan2(closest->rect.center[1] - rect.center[1], closest->rect.center[0] - rect.center[0])) * speed;
-		rect.dest.x = rect.bufferx;
-		rect.dest.y = rect.buffery;
+		rect.bufferx += static_cast<float>(cos(atan2(closest->rect.center[1] - rect.center[1], closest->rect.center[0] - rect.center[0])) * speed);
+		rect.buffery += static_cast<float>(sin(atan2(closest->rect.center[1] - rect.center[1], closest->rect.center[0] - rect.center[0])) * speed);
+		rect.dest.x = static_cast<int>(rect.bufferx);
+		rect.dest.y = static_cast<int>(rect.buffery);
 		rect.update();
 		
 		if (closest->rect.CollideRect(rect)) {
@@ -122,14 +122,14 @@ bool Entity::look() {
 			roam = true;
 		}
 
-		rect.bufferx += cos(angle * (M_PI / 180)) * speed;
-		rect.buffery += sin(angle * (M_PI / 180)) * speed;
-		rect.dest.x = rect.bufferx;
-		rect.dest.y = rect.buffery;
+		rect.bufferx += static_cast<float>(cos(angle * (M_PI / 180)) * speed);
+		rect.buffery += static_cast<float>(sin(angle * (M_PI / 180)) * speed);
+		rect.dest.x = static_cast<int>(rect.bufferx);
+		rect.dest.y = static_cast<int>(rect.buffery);
 		rect.update();
 	}
 
-	energy -= speed * speed * 0.5;
+	energy -= speed * speed * 0.5f;
 
 	if (energy <= 0) {
 		dead = true;
@@ -143,7 +143,9 @@ bool Entity::look() {
 void Entity::makeBabbe() {
 	if (energy - 1000 >= 500) {
 		int angle_ = (rand() % 360);
-		Entity e((cos(angle_ * (M_PI / 180.0f)) * sight) + rect.dest.x, (sin(angle_ * (M_PI / 180.0f)) * sight) + rect.dest.y);
+		int x = static_cast<int>((cos(angle_ * (M_PI / 180.0f)) * sight) + rect.dest.x);
+		int y = static_cast<int>((sin(angle_ * (M_PI / 180.0f)) * sight) + rect.dest.y);
+		Entity e(x, y);
 		
 		e.energy = 300;
 		e.dead = dead;

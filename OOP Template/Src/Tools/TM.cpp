@@ -76,9 +76,9 @@ SDL_Texture* TM::LoadBWTexture(const char* texture)
 
 
 		Uint32 * pixels = static_cast<Uint32*>(tmp->pixels);
-		for (unsigned int y = 0; y < tmp->h; y++)
+		for (int y = 0; y < tmp->h; y++)
 		{
-			for (unsigned int x = 0; x < tmp->w; x++)
+			for (int x = 0; x < tmp->w; x++)
 			{
 				Uint32 pixel = pixels[y * tmp->w + x];
 				Uint8 r = pixel >> 16 & 0xFF;

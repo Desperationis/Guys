@@ -32,7 +32,7 @@ void Quadtree::clearQueue() {
 
 	tmp.clear();
 
-	for (int i = 0; i < queue.size(); i++) {
+	for (unsigned int i = 0; i < queue.size(); i++) {
 		insert(queue[i]);
 	}
 	queue.clear();
