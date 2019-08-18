@@ -15,5 +15,7 @@ const int FOOD::ENERGY = 100;
 
 const int HOOMAN::SIGHT = 500;
 const int HOOMAN::BEGIN = 400;
+bool HOOMAN::RENDER_SIGHT = false;
+bool HOOMAN::RESET = false;
 
 const bool DEBUG::OUT_OF_BOUNDS = false;

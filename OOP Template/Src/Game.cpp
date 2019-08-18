@@ -78,9 +78,8 @@ void Game::update() {
 		std::cout << avgFPS << std::endl;
 	}
 
-	if (!overlay->visible) {
-		debugTools->update();
-	}
+	
+	debugTools->update();
 
 	overlay->update();
 	quadtree->update(quadtree->root);

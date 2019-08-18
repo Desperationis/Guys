@@ -31,8 +31,14 @@ void Button::update() {
 }
 
 void Button::render() {
-	TM::renderDrawColor(color);
+	if (pressed) {
+		TM::renderDrawColor(color.r - 50, color.g - 50, color.b - 50, color.a);
+	}
+	else {
+		TM::renderDrawColor(color);
+	}
 	SDL_RenderFillRect(TM::renderer, &rect.dest);
+
 	TM::renderDrawColor(0, 0, 0, 255);
 	SDL_RenderDrawLine(TM::renderer, rect.dest.x, rect.dest.y, rect.dest.x, rect.dest.y + rect.dest.h);
 	SDL_RenderDrawLine(TM::renderer, rect.dest.x + rect.dest.w, rect.dest.y, rect.dest.x + rect.dest.w, rect.dest.y + rect.dest.h);
@@ -58,11 +64,11 @@ void Button::render() {
 	}
 }
 
-void Button::addButton(const char* text) {
+void Button::addButton(const char* text, bool& value) {
 	if (dropDown.size() != 0) {
-		dropDown.push_back(new Button(text, rect.dest.x, dropDown.back()->rect.dest.y + rect.dest.h, rect.dest.w, rect.dest.h, *value));
+		dropDown.push_back(new Button(text, rect.dest.x, dropDown.back()->rect.dest.y + rect.dest.h, rect.dest.w, rect.dest.h, value));
 	}
 	else {
-		dropDown.push_back(new Button(text, rect.dest.x, rect.dest.y + rect.dest.h, rect.dest.w, rect.dest.h, *value));
+		dropDown.push_back(new Button(text, rect.dest.x, rect.dest.y + rect.dest.h, rect.dest.w, rect.dest.h, value));
 	}
 }

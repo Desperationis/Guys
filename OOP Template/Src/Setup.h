@@ -17,6 +17,8 @@ struct FOOD {
 struct HOOMAN {
 	static const int SIGHT; // How far hooman can see on speed 1
 	static const int BEGIN; // Initial numbers
+	static bool RENDER_SIGHT; // Toggle to render the "eyes" of the hoomans
+	static bool RESET; // Toggle to reset
 };
 
 struct QUADTREE {

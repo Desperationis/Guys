@@ -182,7 +182,9 @@ void Entity::render() {
 	}
 	else {
 		rect.renderFill(color);
-		//eyes.renderOutline(0, 155, 155);
+		if (HOOMAN::RENDER_SIGHT) {
+			eyes.renderOutline(0, 155, 155);
+		}
 	}
 }
 

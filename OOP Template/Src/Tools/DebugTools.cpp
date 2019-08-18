@@ -2,6 +2,7 @@
 #include "../Quadtree.h"
 #include "../Game.h"
 #include "InputSystem.h"
+#include "../Setup.h"
 
 
 void DebugTools::update() {
@@ -21,7 +22,21 @@ void DebugTools::update() {
 	Rclicked = InputSystem::mouse[InputSystem::MOUSE::RIGHT];
 
 
-	if (InputSystem::keys[SDL_SCANCODE_GRAVE]) {
+	if (HOOMAN::RESET) {
 		Game::quadtree->clear(Game::quadtree->root);
+		for (int i = 0; i < HOOMAN::BEGIN; i++) {
+			int x = (rand() % (WINDOW::WIDTH - 4)) + 2;
+			int y = (rand() % (WINDOW::HEIGHT - 4)) + 2;
+			Entity e(x, y);
+			Game::quadtree->insert(e);
+		}
+		for (int i = 0; i < FOOD::BEGIN; i++) {
+			int x = (rand() % (WINDOW::WIDTH - 4)) + 2;
+			int y = (rand() % (WINDOW::HEIGHT - 4)) + 2;
+			Entity e(x, y);
+			e.plant = true;
+			Game::quadtree->insert(e);
+		}
+		HOOMAN::RESET = false;
 	}
 }

@@ -8,7 +8,7 @@ struct Button {
 	Button(const char* text, int x, int y, int w, int h, bool& value);
 	void update();
 	void render();
-	void addButton(const char* text);
+	void addButton(const char* text, bool& value);
 
 	static Font* font;
 	SDL_Rect textDest;
