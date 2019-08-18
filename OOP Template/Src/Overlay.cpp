@@ -13,9 +13,14 @@ Overlay::Overlay() {
 	int width = (dest.w / number) ;
 
 	buttons.push_back(Button("Reset", width * 0, 0, width, 90, QUADTREE::RENDER));
+	buttons.back().addButton("text");
 
 	buttons.push_back(Button("Quadtree", width * 1, 0, width, 90, dummy));
 
+	buttons.back().addButton("text");
+	buttons.back().addButton("text");
+	buttons.back().addButton("text");
+	buttons.back().addButton("text");
 	buttons.back().addButton("text");
 
 	buttons.push_back(Button("Food", width * 2, 0, width, 90, dummy));

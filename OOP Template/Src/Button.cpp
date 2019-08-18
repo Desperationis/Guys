@@ -22,6 +22,12 @@ void Button::update() {
 		*value = !(*value);
 	}
 	pressed = rect.CollidePoint(InputSystem::mouse[InputSystem::X], InputSystem::mouse[InputSystem::Y]) && InputSystem::mouse[InputSystem::LEFT];
+
+	for (int i = 0; i < dropDown.size(); i++) {
+		if (preview) {
+			dropDown[i]->update();
+		}
+	}
 }
 
 void Button::render() {
@@ -34,7 +40,17 @@ void Button::render() {
 	TM::DrawTexture(text, textDest);
 
 	if (dropDown.size() != 0) {
-		if (rect.CollidePoint(InputSystem::mouse[InputSystem::X], InputSystem::mouse[InputSystem::Y])) {
+		if (preview) {
+			preview = false;
+			for (int i = 0; i < dropDown.size(); i++) {
+				preview = dropDown[i]->rect.CollidePoint(InputSystem::mouse[InputSystem::X], InputSystem::mouse[InputSystem::Y]) || preview;
+			}
+		}
+		if (!preview) {
+			preview = rect.CollidePoint(InputSystem::mouse[InputSystem::X], InputSystem::mouse[InputSystem::Y]);
+		}
+
+		if (preview) {
 			for (int i = 0; i < dropDown.size(); i++) {
 				dropDown[i]->render();
 			}
@@ -43,5 +59,10 @@ void Button::render() {
 }
 
 void Button::addButton(const char* text) {
-	dropDown.push_back(new Button(text, rect.dest.x, rect.dest.y + rect.dest.h, rect.dest.x, rect.dest.h, *value));
+	if (dropDown.size() != 0) {
+		dropDown.push_back(new Button(text, rect.dest.x, dropDown.back()->rect.dest.y + rect.dest.h, rect.dest.w, rect.dest.h, *value));
+	}
+	else {
+		dropDown.push_back(new Button(text, rect.dest.x, rect.dest.y + rect.dest.h, rect.dest.w, rect.dest.h, *value));
+	}
 }

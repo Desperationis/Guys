@@ -17,5 +17,6 @@ struct Button {
 	SDL_Color color{ 255,255,255, 240 };
 	std::vector<Button*> dropDown;
 	bool pressed = false;
+	bool preview = false;
 	bool* value;
 };
