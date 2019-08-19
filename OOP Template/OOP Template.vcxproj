@@ -163,7 +163,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Button.cpp" />
+    <ClCompile Include="Src\BoolButton.cpp" />
+    <ClCompile Include="Src\Dropdown.cpp" />
     <ClCompile Include="Src\Entity.cpp" />
     <ClCompile Include="Src\Game.cpp" />
     <ClCompile Include="Src\Overlay.cpp" />
@@ -179,7 +180,9 @@
     <ClCompile Include="Src\Tools\TM.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\BoolButton.h" />
     <ClInclude Include="Src\Button.h" />
+    <ClInclude Include="Src\Dropdown.h" />
     <ClInclude Include="Src\Entity.h" />
     <ClInclude Include="Src\Game.h" />
     <ClInclude Include="Src\includes.h" />

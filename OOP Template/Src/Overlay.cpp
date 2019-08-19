@@ -1,7 +1,8 @@
 #include "Overlay.h"
 #include "Setup.h"
 #include "Game.h"
-#include "Button.h"
+#include "BoolButton.h"
+#include "Dropdown.h"
 
 bool dummy = false;
 
@@ -12,39 +13,40 @@ Overlay::Overlay() {
 	int margin = 8;
 	int width = (dest.w / number) ;
 
-	buttons.push_back(Button("Reset", width * 0, 0, width, 90, HOOMAN::RESET));
-	buttons.push_back(Button("Quadtree", width * 1, 0, width, 90, dummy));
+	buttons.push_back(new BoolButton("Reset", width * 0, 0, width, 90, HOOMAN::RESET));
+	buttons.push_back(new Dropdown("Quadtree", width * 1, 0, width, 90));
 
-	buttons.back().addButton("Render", QUADTREE::RENDER);
-	buttons.back().addButton("Iterations", dummy);
+	buttons.back()->addButton(new BoolButton("Render", -1, -1, -1, -1, QUADTREE::RENDER));
+	buttons.back()->addButton(new BoolButton("Iterations", -1, -1, -1, -1, dummy));
 
-	buttons.push_back(Button("Food", width * 2, 0, width, 90, dummy));
+	buttons.push_back(new Dropdown("Food", width * 2, 0, width, 90));
 
-	buttons.back().addButton("Initial Count", dummy);
-	buttons.back().addButton("Growth", dummy);
-	buttons.back().addButton("Size", dummy);
-	buttons.back().addButton("Color", dummy);
+	buttons.back()->addButton(new BoolButton("Initial Count", -1, -1, -1, -1, dummy));
+	buttons.back()->addButton(new BoolButton("Growth", -1, -1, -1, -1, dummy));
+	buttons.back()->addButton(new BoolButton("Size", -1, -1, -1, -1, dummy));
+	buttons.back()->addButton(new BoolButton("Color", -1, -1, -1, -1, dummy));
+	
+	buttons.push_back(new Dropdown("Hoomen", width * 3, 0, width, 90));
+	
+	buttons.back()->addButton(new BoolButton("Initial Count", -1, -1, -1, -1, dummy));
+	buttons.back()->addButton(new BoolButton("Sight", -1, -1, -1, -1, dummy));
+	buttons.back()->addButton(new BoolButton("Render Sight", -1, -1, -1, -1, HOOMAN::RENDER_SIGHT));
+	buttons.back()->addButton(new BoolButton("Color", -1, -1, -1, -1, dummy));
 
-	buttons.push_back(Button("Hoomen", width * 3, 0, width, 90, dummy));
+	
+	buttons.push_back(new Dropdown("Graphics", width * 4, 0, width, 90));
 
-	buttons.back().addButton("Initial Count", dummy);
-	buttons.back().addButton("Sight", dummy);
-	buttons.back().addButton("Render Sight", HOOMAN::RENDER_SIGHT);
-	buttons.back().addButton("Color", dummy);
-
-	buttons.push_back(Button("Graphics", width * 4, 0, width, 90, dummy));
-
-	buttons.back().addButton("VSync", dummy);
-	buttons.back().addButton("FPS Counter", WINDOW::FPS_COUNTER);
-	buttons.back().addButton("Width", dummy);
-	buttons.back().addButton("Height", dummy);
+	buttons.back()->addButton(new BoolButton("VSync", -1, -1, -1, -1, dummy));
+	buttons.back()->addButton(new BoolButton("FPS Counter", -1, -1, -1, -1, WINDOW::FPS_COUNTER));
+	buttons.back()->addButton(new BoolButton("Width", -1, -1, -1, -1, dummy));
+	buttons.back()->addButton(new BoolButton("Height", -1, -1, -1, -1, dummy));
 }
 
 void Overlay::render() {
 	if (visible) {
 
 		for (unsigned int i = 0; i < buttons.size(); i++) {
-			buttons[i].render();
+			buttons[i]->render();
 		}
 	}
 }
@@ -57,7 +59,7 @@ void Overlay::update() {
 
 	if (visible) {
 		for (unsigned int i = 0; i < buttons.size(); i++) {
-			buttons[i].update();
+			buttons[i]->update();
 		}
 	}
 }

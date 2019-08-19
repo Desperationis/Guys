@@ -11,5 +11,5 @@ struct Overlay {
 
 	SDL_Rect dest;
 	bool visible = false, toggle;
-	std::vector<Button> buttons;
+	std::vector<Button*> buttons;
 };

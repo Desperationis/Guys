@@ -54,7 +54,10 @@
     <ClCompile Include="Src\Overlay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Button.cpp">
+    <ClCompile Include="Src\BoolButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Dropdown.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,7 +101,13 @@
     <ClInclude Include="Src\Overlay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\BoolButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Dropdown.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

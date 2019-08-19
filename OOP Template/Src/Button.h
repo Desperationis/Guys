@@ -5,18 +5,15 @@
 #include "Tools/Rect.h"
 
 struct Button {
-	Button(const char* text, int x, int y, int w, int h, bool& value);
-	void update();
-	void render();
-	void addButton(const char* text, bool& value);
+	Button() {};
+	virtual void update() {};
+	virtual void render() {};
+	virtual void addButton(Button* button) { std::cout << "Wrong derived class" << std::endl; };
 
-	static Font* font;
 	SDL_Rect textDest;
 	Rect rect;
 	SDL_Texture* text;
 	SDL_Color color{ 255,255,255, 240 };
-	std::vector<Button*> dropDown;
 	bool pressed = false;
 	bool preview = false;
-	bool* value;
 };
