@@ -8,7 +8,6 @@
 
 int main(int argc, char* argv[])
 {
-	int FRAMERATE = WINDOW::FPS;
 
 	srand(static_cast<unsigned int>(time(0)));
 
@@ -26,14 +25,14 @@ int main(int argc, char* argv[])
 
 		countedFrames++;
 		if (regulator.getTicks() < static_cast<Uint32>(1000 / WINDOW::FPS)) {
-			SDL_Delay((1000 / FRAMERATE) - regulator.getTicks());
+			SDL_Delay((1000 / WINDOW::FPS) - regulator.getTicks());
 			// 1000ms / 60 = 16ms delay for 60 fps
 		}
 		regulator.stop();
 
 		if (InputSystem::keys[SDL_SCANCODE_RSHIFT]) {
 			std::cout << "FRAMERATE: ";
-			std::cin >> FRAMERATE;
+			std::cin >> WINDOW::FPS;
 			std::cout << "\n";
 		}
 	}

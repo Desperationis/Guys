@@ -21,9 +21,9 @@ public:
 	void loadRenderType(RENDER_TYPE type);
 	void setDest(SDL_Rect& dest);
 	SDL_Texture* toText(const char* text);
+	TTF_Font* font;
 
 private:
-	TTF_Font* font;
 	const char* loadedFile;
 	RENDER_TYPE renderType = _NULL_;
 	SDL_Color fontColor;

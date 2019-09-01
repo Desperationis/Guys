@@ -53,6 +53,20 @@ void Quadtree::render(Quad* root) {
 }
 
 void Quadtree::update(Quad* root) {
+	if (root->iteration > QUADTREE::MAX_ITERATION) {
+		for (unsigned int i = 0; i < root->parent->children.size(); i++) {
+			for (auto it = root->parent->children[i].entities.begin(); it != root->parent->children[i].entities.end(); it++) {
+				root->parent->entities[it.key()] = it.value();
+				root->parent->entities[it.key()].parent = root->parent;
+				it.value().clean();
+			}
+		}
+		root->parent->children.clear();
+		root = nullptr;
+		return;
+	}
+
+
 	// ERASING CODE HERE
 	bool flag = true;
 	if (root->children.size() != 0) {
@@ -119,13 +133,19 @@ void Quadtree::insert(Entity& entity) {
 	SDL_Rect& dest = quad->rect.dest;
 
 	quad->entities[Entity::counter] = Entity(entity.rect.dest.x, entity.rect.dest.y);
+	if (!entity.plant) {
+		entity.rect.dest.w = HOOMAN::SIZE;
+		entity.rect.dest.h = HOOMAN::SIZE;
+		entity.rect.update();
+	}
 	quad->entities[Entity::counter].copy(entity);
 
 
 	quad->entities[Entity::counter].parent = quad;
 	Entity::counter++;
 
-	if (quad->iteration > QUADTREE::MAX_ITERATION) {
+	if (quad->iteration == QUADTREE::MAX_ITERATION) {
+		// do not make any more quads at this point
 		quad = nullptr;
 		return;
 	}

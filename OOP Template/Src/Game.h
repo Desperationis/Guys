@@ -18,7 +18,6 @@ private:
 	SDL_Event event;
 	int countedFrames = 0;
 	bool running = false;
-	bool counter = false;
 	Timer* fpsTimer;
 	SDL_Window* window;
 	DebugTools* debugTools;

@@ -4,10 +4,10 @@
 #include "Tools/Timer.h"
 #include "Tools/InputSystem.h"
 #include "Tools/Rect.h"
-#include "Quadtree.h"
 #include "Tools/DebugTools.h"
+#include "Tools/Menu/Overlay/Overlay.h"
+#include "Quadtree.h"
 #include "Setup.h"
-#include "Overlay.h"
 
 Quadtree* Game::quadtree;
 Overlay* overlay;
@@ -51,9 +51,19 @@ Game::Game(const char* name, int xpos, int ypos, int width, int height, Uint32 f
 }
 
 Uint32 frame = 0; // frame counter
-
+bool vsync = WINDOW::VSYNC;
 void Game::update() {
+	if (vsync != WINDOW::VSYNC) {
+		vsync = WINDOW::VSYNC;
+		SDL_DestroyRenderer(TM::renderer);
+		TM::rendererInit(Game::window);
+		overlay->init();
+	}
+
 	frame++;
+	if (FOOD::GROWTH == 0) {
+		FOOD::GROWTH = 1;
+	}
 	if (frame % FOOD::GROWTH == 0) {
 		for (int i = 0; i < FOOD::MULTIPLIER; i++) {
 			int x = (rand() % (WINDOW::WIDTH - 4)) + 2;
@@ -64,9 +74,9 @@ void Game::update() {
 		}
 	}
 
-	//refreshes frame rate counter
-	if (counter) {
+	if (WINDOW::FPS_COUNTER) {
 		if (fpsTimer->getTicks() > 10000) {
+			//refreshes frame rate counter
 			fpsTimer->stop();
 			fpsTimer->start();
 			countedFrames = 0;
@@ -107,11 +117,6 @@ void Game::events() {
 
 	if (InputSystem::keys[SDL_SCANCODE_ESCAPE]) {
 		running = false;
-	}
-
-	if (WINDOW::FPS_COUNTER) {
-		counter = !counter;
-		WINDOW::FPS_COUNTER = false;
 	}
 }
 

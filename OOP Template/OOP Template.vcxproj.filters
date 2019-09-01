@@ -51,16 +51,16 @@
     <ClCompile Include="Src\Tools\DebugTools.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Overlay.cpp">
+    <ClCompile Include="Src\Tools\Menu\Overlay\BoolButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\BoolButton.cpp">
+    <ClCompile Include="Src\Tools\Menu\Overlay\NumberButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Dropdown.cpp">
+    <ClCompile Include="Src\Tools\Menu\Overlay\Overlay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\NumberButton.cpp">
+    <ClCompile Include="Src\Tools\Menu\Dropdown.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,19 +101,19 @@
     <ClInclude Include="Src\Tools\DebugTools.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Overlay.h">
+    <ClInclude Include="Src\Tools\Menu\Overlay\BoolButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\BoolButton.h">
+    <ClInclude Include="Src\Tools\Menu\Overlay\Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Button.h">
+    <ClInclude Include="Src\Tools\Menu\Overlay\NumberButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Dropdown.h">
+    <ClInclude Include="Src\Tools\Menu\Overlay\Overlay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\NumberButton.h">
+    <ClInclude Include="Src\Tools\Menu\Dropdown.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

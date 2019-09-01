@@ -1,13 +1,19 @@
 #pragma once
 #include "TM.h"
 #include "Font.h"
+#include "../Setup.h"
 
 SDL_Renderer* TM::renderer = nullptr;
 
 // renderer
 
 void TM::rendererInit(SDL_Window* window) {
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+	if (WINDOW::VSYNC) {
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+	}
+	else {
+		renderer = SDL_CreateRenderer(window, -1, 0);
+	}
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 }
 
