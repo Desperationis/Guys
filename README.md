@@ -6,6 +6,6 @@ A simulation of life with no name! Each entity will die if they have no energy, 
 ## Features
 
 * You can add food by left clicking and add a random moving entity with the right.
-* ~ will clear out everything.`
+* Pressing Tab will open the gui.
 
 
