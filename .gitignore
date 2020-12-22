@@ -1,13 +1,3 @@
-.vs\
-Debug\
-Release\
-
-.vs/
-Debug/
-Release/
-
-.vs
-Debug
-Release
-.vs/OOP Template/v16/Browse.VC.db
-.vs/OOP Template/v16/Browse.VC.db
+**/.vs/
+**/Release
+**/Debug
