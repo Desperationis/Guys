@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 
 	srand(static_cast<unsigned int>(time(0)));
 
-	Game game("Contradictory", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW::WIDTH, WINDOW::HEIGHT, NULL);
+	Game game("Guys", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW::WIDTH, WINDOW::HEIGHT, NULL);
 
 	int countedFrames = 0;
 	Timer regulator;
