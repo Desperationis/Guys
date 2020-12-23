@@ -1,21 +1,21 @@
 # Guys
-![Guys GIF](Guys.gif)
+![Guys GIF](GIF/Guys.gif)
 
 A vector-based simulation of life implemented with a Quadtree and a GUI. Here are the current features:
 
 ## GUI
-![GUI GIF](GUI.gif)
+![GUI GIF](GIF/GUI.gif)
 By far the biggest hurdle of this project was making a GUI from scratch, as I had the *audacity* to do so. By simply hitting `tab`, you can toggle a menu in-game that will provide you an interface that customizes settings real-time. 
 
 ## Quadtree
 A quadtree was necessary in this simulation due to the sheer number of collision checks each Guy has to make in order to chase down the closest bit of food. Using the quadtree I used in a previous project using a [fast unordered map](https://github.com/Tessil/hopscotch-map), I managed to modify it so that it can be used on Guys. On start, the quadtree is continuously pruned and updated up to 5 iterations.  
 
 ## Food
-![FOOD GIF](FOOD.gif)
+![FOOD GIF](GIF/FOOD.gif)
 Food is denoted as a green square. Every few frames, an arbitary amount of food is generated at random locations at the map.
 
 ## Speed
-![SPEED GIF](SPEEDvsFOV.gif)
+![SPEED GIF](GIF/SPEEDvsFOV.gif)
 Each Guy has an innate attribute that is randomized at birth that determines his FOV -- speed. Speed is a randomized value that is between 1 and 9.9, where the value represents the amount of pixels traveled in a given direction per frame. The higher the speed a Guy has, the lower his FOV, as if he was running so fast everything blurred around him. Conversely, the lower the speed a guy has, the higher his FOV, as if he were strolling calmly and looking around. In practice, the FOV is determined by dividing the maximium FOV by speed linearly, and is the "evolution" aspect of this simulation; Guys with the right balance of speed and sight will consume more food than those who don't have that balance.
 
 ## Behaviour 
