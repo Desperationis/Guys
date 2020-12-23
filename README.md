@@ -1,7 +1,7 @@
 # Guys
 ![Guys GIF](GIF/Guys.gif)
 
-A vector-based simulation of life implemented with a Quadtree and a GUI, where every moving square you see on screen is a "Guy" that tries to dominate the population with a single color.  
+Guys is a vector-based simulation of life implemented with a Quadtree and a GUI, where every moving square you see on screen is a "Guy" that tries to dominate the population with a single color.  
 
 ## GUI
 ![GUI GIF](GIF/GUI.gif)
