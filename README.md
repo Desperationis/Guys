@@ -19,6 +19,8 @@ Food is denoted as a green square. Every few frames, an arbitary amount of food 
 Each Guy has an innate attribute that is randomized at birth that determines his FOV -- speed. Speed is a randomized value that is between 1 and 9.9, where the value represents the amount of pixels traveled in a given direction per frame. The higher the speed a Guy has, the lower his FOV, as if he was running so fast everything blurred around him. Conversely, the lower the speed a guy has, the higher his FOV, as if he were strolling calmly and looking around. In practice, the FOV is determined by dividing the maximium FOV by speed linearly, and is the "evolution" aspect of this simulation; Guys with the right balance of speed and sight will consume more food than those who don't have that balance.
 
 ## Behaviour 
+### Eating
+Each guy on screen actively tries to find the nearest piece of food on screen that intersects with his FOV box. If there isn't food available, the Guy will continue to move the direction he's going until he hits a wall, where he will bounce back.  
 
 ### Starvation
 If a guy runs around long enough without getting food, he will die as if by starvation. The attribute that determines this is `energy`, which starts at 300 for each Guy at birth. `Energy` is depleted at a rate of `0.5 * (speed ^ 2)` per frame, so faster Guys tradeoff their lifespan in exchange for speed, and slower Guys tradeoff speed for living a lot longer. 
