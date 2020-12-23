@@ -143,8 +143,8 @@ bool Entity::look() {
 void Entity::makeBabbe() {
 	if (energy - 1000 >= 500) {
 		int angle_ = (rand() % 360);
-		int x = static_cast<int>((cos(angle_ * (M_PI / 180.0f)) * sight) + rect.dest.x);
-		int y = static_cast<int>((sin(angle_ * (M_PI / 180.0f)) * sight) + rect.dest.y);
+		int x = static_cast<int>((cos(angle_ * (M_PI / 180.0f)) * HOOMAN::SIZE * 5) + (rect.dest.x + rect.dest.w / 2.0f));
+		int y = static_cast<int>((sin(angle_ * (M_PI / 180.0f)) * HOOMAN::SIZE * 5) + (rect.dest.y + rect.dest.h / 2.0f));
 		Entity e(x, y);
 		
 		e.energy = 300;
