@@ -60,7 +60,7 @@ void Overlay::init() {
 	buttons.back()->addButton(new NumberButton("Plants Per Growth", -1, -1, -1, -1, FOOD::MULTIPLIER));
 	buttons.back()->addButton(new NumberButton("Size", -1, -1, -1, -1, FOOD::SIZE));
 
-	buttons.push_back(new Dropdown("Hoomen", width * 3, 0, width, 90));
+	buttons.push_back(new Dropdown("Guys", width * 3, 0, width, 90));
 
 	buttons.back()->addButton(new NumberButton("Initial Count", -1, -1, -1, -1, HOOMAN::BEGIN));
 	buttons.back()->addButton(new NumberButton("Sight", -1, -1, -1, -1, HOOMAN::SIGHT));
