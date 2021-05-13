@@ -205,7 +205,7 @@ Quad* Quadtree::search(int& x, int& y, Quad* root) {
 		buffer << root->rect.dest.h;
 		tmp += buffer.str() + "}";
 		buffer.str("");
-		throw std::exception(tmp.c_str());
+		throw std::runtime_error(tmp.c_str());
 		return root;
 	}
 
