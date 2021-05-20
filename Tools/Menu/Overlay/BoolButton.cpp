@@ -7,12 +7,12 @@ Font* BoolButton::indicatorFont = nullptr;
 BoolButton::BoolButton(const char* text, int x, int y, int w, int h, bool& value, bool indicatorHidden_){
 	if (font == nullptr) {
 		SDL_Color tmp = SDL_Color{ 0,0,0, 255 };
-		font = new Font("Fonts/8bitoperator_jve.ttf", 32, tmp);
+		font = new Font("../Fonts/8bitoperator_jve.ttf", 32, tmp);
 		font->loadRenderType(Font::BLENDED);
 	}
 	if (indicatorFont == nullptr) {
 		SDL_Color tmp = SDL_Color{ 0,0,0, 255 };
-		indicatorFont = new Font("Fonts/8bitoperator_jve.ttf", 24, tmp);
+		indicatorFont = new Font("../Fonts/8bitoperator_jve.ttf", 24, tmp);
 		indicatorFont->loadRenderType(Font::BLENDED);
 	}
 	this->text = font->toText(text);

@@ -1,5 +1,6 @@
-**/.vs/
-**/Release
-**/Debug
-**/x64
-**/x84
+*.swp
+build/
+.cache/
+compile_commands.json
+Dependencies/
+executable/

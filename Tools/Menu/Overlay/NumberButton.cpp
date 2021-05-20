@@ -8,12 +8,12 @@ Timer NumberButton::fast;
 NumberButton::NumberButton(const char* text, int x, int y, int w, int h, int& value) {
 	if (font == nullptr) {
 		SDL_Color tmp = SDL_Color{ 0,0,0, 255 };
-		font = new Font("Fonts/8bitoperator_jve.ttf", 32, tmp);
+		font = new Font("../Fonts/8bitoperator_jve.ttf", 32, tmp);
 		font->loadRenderType(Font::SOLID);
 	}
 	if (numberFont == nullptr) {
 		SDL_Color tmp = SDL_Color{ 0,0,0, 255 };
-		numberFont = new Font("Fonts/8bitoperator_jve.ttf", 24, tmp);
+		numberFont = new Font("../Fonts/8bitoperator_jve.ttf", 24, tmp);
 		numberFont->loadRenderType(Font::BLENDED);
 	}
 	rect.setup(x, y, w, h);

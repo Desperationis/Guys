@@ -1,3 +1,5 @@
+set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
+
 cmake_minimum_required(VERSION 3.5)
 
 project(Guys VERSION 1.0) # Set variable PROJECT_NAME
@@ -8,8 +10,8 @@ target_include_directories(output
 		PUBLIC 
 		./
 		./Dependencies/SDL_FULL/include/
-		./Dependencies/json-develop/single_include/nlohmann
-		./Dependencies/hopscotch-map-master/include/tsl
+		./Dependencies/json/single_include/nlohmann
+		./Dependencies/hopscotch-map/include/tsl
 		)
 
 link_directories(output
