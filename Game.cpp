@@ -109,14 +109,15 @@ void Game::render() {
 void Game::events() {
 	SDL_PollEvent(&event);
 	InputSystem::PumpEvents();
+	
+	while(SDL_PollEvent(&event)) {
+		if(event.type == SDL_QUIT) {
+			running = false;
+		}
 
-	switch (event.window.event) {
-	case SDL_WINDOWEVENT_CLOSE:
-		running = false;
-	}
-
-	if (InputSystem::keys[SDL_SCANCODE_ESCAPE]) {
-		running = false;
+		if (InputSystem::keys[SDL_SCANCODE_ESCAPE]) {
+			running = false;
+		}
 	}
 }
 
