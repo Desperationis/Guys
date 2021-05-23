@@ -67,7 +67,7 @@ After that, create a folder named `Dependencies`. In that folder, create a folde
 * Get the `SDL2-devel-2.0.x` archive from [here](https://www.libsdl.org/release/)
 * Get the `SDL2_image-devel-2.0.x` archive from [here](https://www.libsdl.org/projects/SDL_image/release/)
 * Get the `SDL2_ttf-devel-2.0.x` archive from [here](https://www.libsdl.org/projects/SDL_ttf/release/)
-* For each archive, unzip the contents of their `include` folder into `Dependencies/SDL_FULL/include` and `lib/x86` folder into `SDL_FULL/x86`
+* For each archive, unzip the contents of their `include` folder into `Dependencies/SDL_FULL/include` and `lib/x86` folder into `Dependencies/SDL_FULL/x86`
 * Move all the .dll files into a separate folder at the root of the project; This is where your executable will run. 
 
 This project also requires the use of two open-source libraries [nlohmann/json](https://github.com/nlohmann/json) and [Tessil/hopscotch-map](https://github.com/Tessil/hopscotch-map). Download the `include.zip` file in [nlohmann/json](https://github.com/nlohmann/json) and put its contents in a folder titled `json` in `Dependencies/`, and clone / download the source code of [Tessil/hopscotch-map](https://github.com/Tessil/hopscotch-map) and rename the folder for the project as `hopscotch-map` and put it in `Dependencies/`. After that, you're all set!
