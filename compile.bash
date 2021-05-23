@@ -6,6 +6,11 @@ then
 	mkdir build
 fi
 
+if ! [[ -d executable ]]
+then
+	mkdir executable
+fi
+
 cd build
 cmake ..
 
