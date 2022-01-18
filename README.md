@@ -52,7 +52,7 @@ If ANY instance of a Guy collides with another instance, even if it's the same f
 * Left click spawns food.
 * Right click spawns an entity with a speed between 1 and 9.9.
 
-# Compiling on Linux (Debian)
+# Compiling on Linux (Debian-based)
 This project uses CMake in order to generate a make file. Install CMake through whatever means necessary, though the easiest would be using `sudo apt-get install cmake` on the command line. 
 
 In addition to this, you must install the dev versions of [SDL2](https://www.libsdl.org/), [SDL2_image](https://www.libsdl.org/projects/SDL_image/), and [SDL2_ttf](https://www.libsdl.org/projects/SDL_ttf/). On Debian, this can be done by calling `sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev`. 
